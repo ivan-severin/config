@@ -1,6 +1,6 @@
 
 " Don't try to be vi compatible
-set nocompatible
+" set nocompatible
 
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
@@ -29,21 +29,39 @@ execute pathogen#infect()
 
 
 call vundle#begin()
-" "call vundle#begin('~/some/path/here')
+" call vundle#begin('~/some/path/here')
 
-" " let Vundle manage Vundle, required
+"  let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" " plugin on GitHub repo
+"  plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 
-" " CScope maps for kernel 
+"  CScope maps for kernel
 Plugin 'gnattishness/cscope_maps'
 
-" " latex preview
+"  File Browsing
+Plugin 'scrooloose/nerdtree'
+
+"  Python Auto-Indentation
+Plugin 'vim-scripts/indentpython.vim'
+
+"  Python Auto-Complete
+Plugin 'Valloric/YouCompleteMe'
+
+"  Sublime Text style multiple selections
+Plugin 'terryma/vim-multiple-cursors'
+
+"  Comments
+Plugin 'tpope/vim-commentary'
+
+"  Folding big classes
+Plugin 'tmhedberg/SimpylFold'
+
+"  latex preview
 Plugin 'xuhdev/vim-latex-live-preview'
 
-" " colorscheme hybrid
+"  colorscheme hybrid
 Plugin 'w0ng/vim-hybrid'
 
 " Airline theme
@@ -55,12 +73,11 @@ call vundle#end()            " required
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-" "filetype plugin on
+" filetype plugin on
 let g:airline#extensions#tabline#enabled = 1
 
-" Apply theme 
+" Apply theme
 let g:airline_theme='minimalist'
-
 let g:airline_powerline_fonts = 1
 
 " Formatting
@@ -104,9 +121,27 @@ inoremap <F1> <ESC>:set invfullscreen<CR>a
 nnoremap <F1> :set invfullscreen<CR>
 vnoremap <F1> :set invfullscreen<CR>
 
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Enable folding with the spacebar
+nnoremap <space> za
+let g:SimpylFold_docstring_preview=1
+
+
 " move among buffers with CTRL
-map <C-J> :bnext<CR>
+map <C-L> :bnext<CR>
 map <C-K> :bprev<CR>
+map <C-J> :bd<CR>
+" C-T for new tab
+nnoremap <C-t> :tabnew<cr>
+
+" Navigating with guides
+inoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+vnoremap <Space><Space> <Esc>/<++><Enter>"_c4l
+map <Space><Space> <Esc>/<++><Enter>"_c4l
+inoremap ;gui <++>
 
 " Cursor motion
 set scrolloff=3
@@ -133,6 +168,33 @@ set laststatus=2
 "set showcmd
 
 
+" Comment line (plugin)
+inoremap <C-_> gc
+vnoremap <C-_> v_gc
+map <C-_> gc}
+" map <C-_><Sift>  gc}
+
+"  File browser
+map <C-o> :NERDTreeToggle<CR>
+
+
+" vim-multiple-cursors
+" let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+" let g:multi_cursor_start_word_key      = '<C-n>'
+" let g:multi_cursor_select_all_word_key = '<A-n>'
+" let g:multi_cursor_start_key           = 'g<C-n>'
+" let g:multi_cursor_select_all_key      = 'g<A-n>'
+" let g:multi_cursor_next_key            = '<C-n>'
+" let g:multi_cursor_prev_key            = '<C-p>'
+" let g:multi_cursor_skip_key            = '<C-x>'
+" let g:multi_cursor_quit_key            = '<Esc>'
+
+
+" Automatically deletes all tralling whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
+
 
 
 " C/C++ configs
@@ -143,7 +205,7 @@ autocmd FileType c,cpp  execute "set colorcolumn=" . join(range(81,335), ',')
 autocmd FileType c,cpp  highlight ColorColumn ctermbg=Black ctermfg=DarkRed
 
 " Highlight trailing spaces
-" " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+"  http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 autocmd FileType c,cpp highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd FileType c,cpp match ExtraWhitespace /\s\+$/
 autocmd FileType c,cpp autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -156,16 +218,58 @@ autocmd FileType c,cpp set tabstop=2
 autocmd FileType c,cpp set softtabstop=2
 autocmd FileType c,cpp set expandtab
 
-" this is mostly a matter of taste. but LaTeX looks good with just a bit
-" " of indentation.
-" " TIP: if you write your \label's as \label{fig:something}, then if you
-" " type in \ref{fig: and press <C-n> you will automatically cycle through
-" " all the figure labels. Very useful!
-
-" LATEX config 
-" " update time
-" " Pdf viewer 
+" LATEX config
 autocmd Filetype tex setl updatetime=10000
 autocmd Filetype tex let g:livepreview_previewer = 'open -a Preview'
 autocmd Filetype tex map <leader>s :LLPStartPreview<CR>
+autocmd FileType tex setlocal commentstring=%\ %s
 
+
+autocmd FileType tex inoremap <leader>fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><Esc>6kf}i
+autocmd FileType tex inoremap <leader>em \emph{}<++><Esc>T{i
+autocmd FileType tex inoremap <leader>bf \textbf{}<++><Esc>T{i
+autocmd FileType tex vnoremap <leader> <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
+autocmd FileType tex inoremap <leader>it \textit{}<++><Esc>T{i
+
+autocmd FileType tex inoremap <leader>ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
+autocmd FileType tex inoremap <leader>ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
+autocmd FileType tex inoremap <leader>li <Enter>\item<Space>
+
+autocmd FileType tex inoremap <leader>ref \ref{}<Space><++><Esc>T{i
+autocmd FileType tex inoremap <leader>tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><Esc>4kA{}<Esc>i
+autocmd FileType tex inoremap <leader>ot \begin{tableau}<Enter>\inp{<++>}<Tab>\const{<++>}<Tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><Esc>5kA{}<Esc>i
+autocmd FileType tex inoremap <leader>sc \textsc{}<Space><++><Esc>T{i
+
+autocmd FileType tex inoremap <leader>chap \chapter{}<Enter><Enter><++><Esc>2kf}i
+autocmd FileType tex inoremap <leader>sec \section{}<Enter><Enter><++><Esc>2kf}i
+autocmd FileType tex inoremap <leader>ssec \subsection{}<Enter><Enter><++><Esc>2kf}i
+autocmd FileType tex inoremap <leader>sssec \subsubsection{}<Enter><Enter><++><Esc>2kf}i
+autocmd FileType tex inoremap <leader>st <Esc>F{i*<Esc>f}i
+
+autocmd FileType tex inoremap <leader>beg \begin{DELRN}<Enter><++><Enter>\end{DELRN}<Enter><Enter><++><Esc>4k0fR:MultipleCursorsFind<Space>DELRN<Enter>c
+autocmd FileType tex inoremap <leader>up <Esc>/usepackage<Enter>o\usepackage{}<Esc>i
+autocmd FileType tex nnoremap <leader>up /usepackage<Enter>o\usepackage{}<Esc>i
+autocmd FileType tex inoremap <leader>tt \texttt{}<Space><++><Esc>T{i
+autocmd FileType tex inoremap <leader>bt {\blindtext}
+autocmd FileType tex inoremap <leader>nu $\varnothing$
+autocmd FileType tex inoremap <leader>col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<Esc>5kA
+autocmd FileType tex inoremap <leader>rn (\ref{})<++><Esc>F}i
+autocmd FileType tex inoremap <leader>ci (\cite{})<++><Esc>F}i
+
+autocmd FileType tex inoremap <leader>ent (\entry{<++>}{<++>}{<++>}<Enter>{<++>}<Enter>{<++>}{<++>})<Enter><Enter><++><Esc>/<++><Enter>"_c4l
+
+autocmd FileType tex inoremap <leader>m $$<Space><++><Esc>2T$i
+autocmd FileType tex inoremap <leader>M $$$$<Enter><Enter><++><Esc>2k$hi
+
+"  Python config
+autocmd FileType python set tabstop=4
+                      \ set softtabstop=4
+                      \ set shiftwidth=4
+                      \ set textwidth=79
+                      \ set expandtab
+                      \ set autoindent
+                      \ set fileformat=unix
+
+autocmd FileType python match BadWhitespace /\s\+$/
+autocmd FileType python let g:ycm_autoclose_preview_window_after_completion=1
+autocmd FileType python map <leader>space  :YcmCompleter GoToDefinitionElseDeclaration<CR>
