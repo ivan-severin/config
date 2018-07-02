@@ -1,18 +1,12 @@
-!#include "/home/nir/.colors/colored"
-!#include "/home/nir/.colors/tron"
-!#include "/home/nir/.colors/eup2"
-!#include "/home/nir/.colors/nancy"
-!#include "~/.colors/hybrid"
+!#include "/home/seva/.colors/ocean-dark"
+!#include "/home/seva/.colors/felixr/solarized"
+#include "/home/seva/.colors/sloarized.dark"
+
 
 ! Appearance
-!URxvt.font:           xft:Terminus (TTF) for Powerline:MediumForPowerline:size=13:antialias=true,xft:Inconsolata\ For\ Powerline:size=13:antialias=true
-!URxvt.imFont:         xft:Terminus (TTF) for Powerline:MediumForPowerline:size=13:antialias=true,xft:Inconsolata\ For\ Powerline:size=13:antialias=true
-!URxvt.boldFont:       xft:Terminus (TTF) for Powerline:MediumForPowerline:size=13:antialias=true,xft:Inconsolata\ For\ Powerline:size=13:antialias=true
-!URxvt.italicFont:     xft:Terminus (TTF) for Powerline:MediumForPowerline:size=13:antialias=true,xft:Inconsolata\ For\ Powerline:size=13:antialias=true
-!URxvt.boldItalicFont: xft:Terminus (TTF) for Powerline:MediumForPowerline:size=13:antialias=true,xft:Inconsolata\ For\ Powerline:size=13:antialias=true
 URxvt.font: xft:Consolas:size=12, xft:Inconsolata\ for\ Powerline
 URxvt.intensityStyles: false
-URxvt.iconFile:       /usr/share/icons/Faenza/apps/scalable/terminal.svg
+!URxvt.iconFile:       /usr/share/icons/Faenza/apps/scalable/terminal.svg
 URxvt.boldMode:       true
 URxvt.skipBuiltinGlyphs: true
 URxvt.loginShell: true
@@ -34,10 +28,10 @@ URxvt.depth: 24
 URxvt.internalBorder: 1
 
 ! Bold/Italic/Underline Styles
-URxvt.colorBD:              #ffffff
-URxvt.colorIT:              #a761c2
-URxvt.colorUL:              #6d9cbe
-URxvt.underlineColor:       #333333
+!URxvt.colorBD:              #ffffff
+!URxvt.colorIT:              #a761c2
+!URxvt.colorUL:              #6d9cbe
+!URxvt.underlineColor:       #333333
 
 ! ScrollBar
 URxvt.scrollBar:            false
@@ -61,10 +55,15 @@ URxvt.transparent:   true
 URxvt.shading:       5
 ! URLs
 
-URxvt.perl-ext:              default,url-select,matcher,clipboard,font-size
-URxvt.keysym.M-u:            perl:url-select:select_next
-URxvt.url-select.launcher:   /usr/bin/chromium
-URxvt.url-select.underline:  true
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+URxvt.url-select.launcher:  chromium
+URxvt.url-select.underline: true
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+
+
 URxvt.keysym.C-Up:           perl:font-size:increase
 URxvt.keysym.C-Down:         perl:font-size:decrease
 URxvt.keysym.C-S-Up:         perl:font-size:incglobal
@@ -74,12 +73,12 @@ URxvt.iso14755_52:           false
 URxvt.keysym.M-c:            perl:clipboard:copy
 URxvt.keysym.M-v:            perl:clipboard:paste
 
-!Xft.autohint:   false
-!Xft.dpi:        96
-!Xft.hinting:    true
-!Xft.hitstyle:   hintslight
-!Xft.lcdfilter:  lcddefault
-!Xft.rgba:       rgb
+Xft.autohint:   false
+Xft.dpi:        96
+Xft.hinting:    true
+Xft.hitstyle:   hintslight
+Xft.lcdfilter:  lcddefault
+Xft.rgba:       rgb
 
 
 Xcursor.size:  15
