@@ -1,7 +1,12 @@
-!#include "/home/seva/.colors/ocean-dark"
-!#include "/home/seva/.colors/felixr/solarized"
-#include "/home/seva/.colors/sloarized.dark"
-
+! #include "/home/severin/.colors/badwolf"
+! #include "/home/severin/.colors/felix"
+! #include "/home/severin/.colors/green"
+#include "/home/severin/.colors/ocean-dark"
+! #include "/home/severin/.colors/pnemva"
+! #include "/home/severin/.colors/sloarized.dark"
+! #include "/home/severin/.colors/solarized"
+! #include "/home/severin/.colors/solarized_light"
+! #include "/home/severin/.colors/tango"
 
 ! Appearance
 URxvt.font: xft:Consolas:size=12, xft:Inconsolata\ for\ Powerline
@@ -14,30 +19,30 @@ URxvt*title: urxvt
 URxvt*termName: rxvt-unicode-256color
 URxvt*urgentOnBell: true
 
-URxvt.borderColor:          #050505
-URxvt.borderless:           false
-URxvt.highlightColor:       #a761c2
-URxvt.highlightTextColor:   #151515
-
-URxvt.cursorColor:          #dedede
-URxvt.cursorColor2:         #151515
+! URxvt.borderColor:          #050505
+! URxvt.borderless:           false
+! URxvt.highlightColor:       #a761c2
+! URxvt.highlightTextColor:   #151515
+!
+! URxvt.cursorColor:          #dedede
+! URxvt.cursorColor2:         #151515
 URxvt.cursorBlink:          true
 URxvt.cursorUnderline:      false
 
-URxvt.depth: 24
-URxvt.internalBorder: 1
+!URxvt.depth: 24
+!URxvt.internalBorder: 1
 
 ! Bold/Italic/Underline Styles
-!URxvt.colorBD:              #ffffff
-!URxvt.colorIT:              #a761c2
-!URxvt.colorUL:              #6d9cbe
-!URxvt.underlineColor:       #333333
+URxvt.colorBD:              #ffffff
+URxvt.colorIT:              #a761c2
+URxvt.colorUL:              #6d9cbe
+URxvt.underlineColor:       #333333
 
 ! ScrollBar
 URxvt.scrollBar:            false
 URxvt.scrollBar_right:      false
 URxvt.scrollstyle:          plain
-URxvt.scrollColor:          #ffffff
+!URxvt.scrollColor:          #ffffff
 URxvt.jumpScroll:           false
 
 URxvt.scrollWithBuffer:     true
@@ -49,25 +54,36 @@ URxvt.pointerBlank:         true
 URxvt.underlineURLs:        true
 URxvt.saveLines:            2048
 
-! Transparency
-!URxvt.transparent:          false
-URxvt.transparent:   true
-URxvt.shading:       5
-! URLs
 
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+! Ctrl+Arrows
+URxvt.keysym.Control-Up:     \033[1;5A
+URxvt.keysym.Control-Down:   \033[1;5B
+URxvt.keysym.Control-Left:   \033[1;5D
+URxvt.keysym.Control-Right:  \033[1;5C
+
+! Transparency
+URxvt.transparent:   false
+!URxvt.transparent:   true
+!URxvt.shading:       0
+
+! URLs
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher
 URxvt.url-select.launcher:  chromium
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
 
+! Clickable urls
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
 
 
-URxvt.keysym.C-Up:           perl:font-size:increase
-URxvt.keysym.C-Down:         perl:font-size:decrease
-URxvt.keysym.C-S-Up:         perl:font-size:incglobal
-URxvt.keysym.C-S-Down:       perl:font-size:decglobal
+! URxvt.keysym.C-Up:           perl:font-size:increase
+! URxvt.keysym.C-Down:         perl:font-size:decrease
+! URxvt.keysym.C-S-Up:         perl:font-size:incglobal
+! URxvt.keysym.C-S-Down:       perl:font-size:decglobal
+!
 URxvt.iso14755:              false
 URxvt.iso14755_52:           false
 URxvt.keysym.M-c:            perl:clipboard:copy
@@ -82,3 +98,17 @@ Xft.rgba:       rgb
 
 
 Xcursor.size:  15
+
+
+rofi.color-enabled:	true
+rofi.color-window:	#000, #000, #000
+rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
+rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
+rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
+
+rofi.fake-transparency:	true
+rofi.lines:		5
+rofi.bw:		0
+rofi.opacity:		"10"
+rofi.hide-scrollbar:	true
+rofi.width:		30

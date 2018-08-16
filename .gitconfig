@@ -1,0 +1,15 @@
+[user]
+	email = ivan.severin.m@gmail.com
+	name = ivan-severin
+[http]
+[https]
+
+[diff "pandoc"]
+  textconv=pandoc --to=markdown
+  prompt = false
+[alias]
+  wdiff = diff --word-diff=color --unified=1
+[diff "docx"]
+	textconv = pandoc
+[color]
+	ui = auto

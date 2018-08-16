@@ -47,7 +47,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/indentpython.vim'
 
 "  Python Auto-Complete
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 "  Sublime Text style multiple selections
 Plugin 'terryma/vim-multiple-cursors'
@@ -138,9 +138,9 @@ map <C-J> :bd<CR>
 nnoremap <C-t> :tabnew<cr>
 
 " Navigating with guides
-inoremap <Tab><Tab> <Esc>/<++><Enter>"_c4l
-vnoremap <Tab><Tab> <Esc>/<++><Enter>"_c4l
-map <Tab><Tab> <Esc>/<++><Enter>"_c4l
+inoremap <C-S-_> <Esc>/<++><Enter>"_c4l
+vnoremap <C-S-_> <Esc>/<++><Enter>"_c4l
+map <C-S-_> <Esc>/<++><Enter>"_c4l
 inoremap ;gui <++>
 
 " Cursor motion
@@ -201,8 +201,7 @@ autocmd BufWritePre * %s/\s\+$//e
 
 "80 characters line
 autocmd FileType c,cpp  set colorcolumn=81
-" autocmd FileType c,cpp  execute "set colorcolumn=" . join(range(81,335), ',')
-autocmd FileType c,cpp  execute "set colorcolumn=" . join(range(120,335), ',')
+autocmd FileType c,cpp  execute "set colorcolumn=" . join(range(81,335), ',')
 autocmd FileType c,cpp  highlight ColorColumn ctermbg=Black ctermfg=DarkRed
 
 " Highlight trailing spaces
@@ -214,40 +213,10 @@ autocmd FileType c,cpp autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$
 autocmd FileType c,cpp autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd FileType c,cpp autocmd BufWinLeave * call clearmatches()
 
- " set UTF-8 encoding
-autocmd FileType c,cpp set enc=utf-8
-autocmd FileType c,cpp set fenc=utf-8
-autocmd FileType c,cpp set termencoding=utf-8
-" disable vi compatibility (emulation of old bugs)
-autocmd FileType c,cpp set nocompatible
-" use indentation of previous line
-autocmd FileType c,cpp set autoindent
-" use intelligent indentation for C
-autocmd FileType c,cpp set smartindent
-" configure tabwidth and insert spaces instead of tabs
-autocmd FileType c,cpp set tabstop=4        " tab width is 4 spaces
-autocmd FileType c,cpp set shiftwidth=4     " indent also with 4 spaces
-autocmd FileType c,cpp set expandtab        " expand tabs to spaces
-" wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-autocmd FileType c,cpp set textwidth=120
-" turn syntax highlighting on
-" autocmd FileType c,cpp set t_Co=256
-autocmd FileType c,cpp syntax on
-" colorscheme wombat256
-" turn line numbers on
-autocmd FileType c,cpp set number
-" highlight matching braces
-autocmd FileType c,cpp set showmatch
-" intelligent comments
-autocmd FileType c,cpp set comments=sl:/*,mb:\ *,elx:\ */
-
 " Textmate holdouts
-" autocmd FileType c,cpp set tabstop=2
-" autocmd FileType c,cpp set softtabstop=2
-" autocmd FileType c,cpp set expandtab
-
-
-
+autocmd FileType c,cpp set tabstop=2
+autocmd FileType c,cpp set softtabstop=2
+autocmd FileType c,cpp set expandtab
 
 " LATEX config
 autocmd Filetype tex setl updatetime=10000
