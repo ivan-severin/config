@@ -34,7 +34,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugin 'tpope/vim-fugitive'
 
 "  gitdiff tool
- Plugin 'jreybert/vimagit'
+Plugin 'jreybert/vimagit'
 
 "  C++ additional syntax highlighting
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -52,7 +52,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/indentpython.vim'
 
 "  Python Auto-Complete
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 "  Sublime Text style multiple selections
 Plugin 'terryma/vim-multiple-cursors'
@@ -66,8 +66,8 @@ Plugin 'tmhedberg/SimpylFold'
 "  latex preview
 " Plugin 'xuhdev/vim-latex-live-preview'
 
-"  colorscheme hybrid
-Plugin 'w0ng/vim-hybrid'
+" Colorscheme pack
+Plugin 'rafi/awesome-vim-colorschemes'
 
 " Airline theme
 Plugin 'vim-airline/vim-airline'
@@ -80,7 +80,12 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 " filetype plugin on
+
+" Enable tabs
 let g:airline#extensions#tabline#enabled = 1
+
+" turnoff statusline
+set laststatus=0
 
 " Apply theme
 " let g:airline_theme='minimalist'
@@ -101,7 +106,15 @@ set t_Co=256
 " let g:solarized_termcolors=256
 " let g:solarized_termtrans=1
 
-colorscheme hybrid
+
+" Colorscheme pack:
+" colorscheme molokai
+" colorscheme hybrid_material
+" colorscheme sidonia
+" colorscheme minimalist
+" colorscheme material
+" colorscheme abstract
+colorscheme apprentice
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
@@ -142,10 +155,10 @@ nnoremap <C-t> :tabnew<cr>
 
 
 " Cursor motion
-set scrolloff=3
-set backspace=indent,eol,start
-set matchpairs+=<:> " use % to jump between pairs
-runtime! macros/matchit.vim
+" set scrolloff=3
+" set backspace=indent,eol,start
+" set matchpairs+=<:> " use % to jump between pairs
+" runtime! macros/matchit.vim
 
 
 " Move up/down editor lines
@@ -177,8 +190,13 @@ map <C-_> gc<Right>
 
 
 "  File browser
-map <C-o> :NERDTreeToggle<CR>
+map <C-e> :NERDTreeToggle<CR>
 
+" Autocpletion (some default stuff)
+" for words
+inoremap <C-Space> <C-n>
+" for files
+inoremap <S-Space> <C-f>
 
 " vim-multiple-cursors
 " let g:multi_cursor_use_default_mapping=0
@@ -203,54 +221,26 @@ set smartindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set expandtab
 
  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " Automatically deletes all tralling whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
+autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd Filetype tex :call Latex_config()
-autocmd Filetype mk,bp :call Androidmk_config()
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
 autocmd FileType python :call Python_config()
+autocmd FileType make :call Make_config()
 
-
-
-" Android.mk configs
-:function Androidmk_config()
-:
-:  "80 characters line
-:  set colorcolumn=100
-:  execute "set colorcolumn=" . join(range(100,335), ',')
-:  highlight ColorColumn ctermbg=Black ctermfg=DarkRed
-:
-:  " Highlight trailing spaces
-:  highlight ExtraWhitespace ctermbg=red guibg=red
-:  match ExtraWhitespace /\s\+$/
-:  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-:  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-:  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-:  autocmd BufWinLeave * call clearmatches()
-:
-:  " use indentation of previous line
-:  set autoindent
-:
-:  " use intelligent indentation
-:  set smartindent
-:
+" For Android.mk's
+:function Make_config()
 :  " configure tabwidth and insert spaces instead of tabs
 :  set tabstop=4
 :  set softtabstop=4
 :  set shiftwidth=4
 :  set expandtab
-:
-:  " turn syntax highlighting on
-:  " turn line numbers on
-:  set number
-:
-:  " highlight matching braces
-:  set showmatch
-:
-:  let g:ycm_autoclose_preview_window_after_completion=1
+:  set textwidth=100
 :endfunction
 
 " C/C++ configs
@@ -258,9 +248,10 @@ autocmd FileType python :call Python_config()
 :
 :  "80 characters line
 :  set colorcolumn=100
-:  " autocmd FileType h,hpp,c,cpp  execute "set colorcolumn=" . join(range(81,335), ',')
+:  " execute "set colorcolumn=" . join(range(81,335), ',')
 :  execute "set colorcolumn=" . join(range(100,335), ',')
 :  highlight ColorColumn ctermbg=Black ctermfg=DarkRed
+:  let g:cpp_member_variable_highlight = 0
 :
 :  " Highlight trailing spaces
 :  highlight ExtraWhitespace ctermbg=red guibg=red
@@ -296,6 +287,7 @@ autocmd FileType python :call Python_config()
 :  " highlight matching braces
 :  set showmatch
 :  " intelligent comments
+:  setlocal commentstring=//\ %s
 :  " set comments=sl:/*,mb:\ *,elx:\ */
 :endfunction
 
