@@ -53,6 +53,7 @@ Plugin 'vim-scripts/indentpython.vim'
 
 "  Python Auto-Complete
 " Plugin 'Valloric/YouCompleteMe'
+Plugin 'justmao945/vim-clang.git'
 
 "  Sublime Text style multiple selections
 Plugin 'terryma/vim-multiple-cursors'
@@ -108,13 +109,71 @@ set t_Co=256
 
 
 " Colorscheme pack:
-" colorscheme molokai
-" colorscheme hybrid_material
+
 " colorscheme sidonia
+" colorscheme afterglow
+" colorscheme alduin
+" colorscheme anderson
+" colorscheme angr
+" colorscheme apprentice
+" colorscheme archery
+" colorscheme atom
+" colorscheme carbonized-dark
+" colorscheme carbonized-light
+" colorscheme challenger_deep
+" colorscheme deep-space
+" colorscheme deus
+" colorscheme dracula
+" colorscheme flattened_dark
+" colorscheme flattened_light
+" colorscheme focuspoint
+" colorscheme github
+" colorscheme gotham256
+" colorscheme gotham
+" colorscheme gruvbox
+" colorscheme happy_hacking
+colorscheme hybrid_material
+" colorscheme hybrid_reverse
+" colorscheme hybrid
+" colorscheme iceberg
+" colorscheme jellybeans
+" colorscheme lightning
+" colorscheme lucid
+" colorscheme lucius
+" colorscheme materialbox
+" colorscheme meta5
 " colorscheme minimalist
-" colorscheme material
-" colorscheme abstract
-colorscheme apprentice
+" colorscheme molokai
+" colorscheme molokayo
+" colorscheme nord
+" colorscheme OceanicNextLight
+" colorscheme OceanicNext
+" colorscheme onedark
+" colorscheme one
+" colorscheme orange-moon
+" colorscheme orbital
+" colorscheme PaperColor
+" colorscheme paramount
+" colorscheme parsec
+" colorscheme pink-moon
+" colorscheme pyte
+" colorscheme rakr
+" colorscheme rdark-terminal2
+" colorscheme scheakur
+" colorscheme seoul256-light
+" colorscheme seoul256
+" colorscheme sierra
+" colorscheme solarized8_flat
+" colorscheme solarized8_high
+" colorscheme solarized8_low
+" colorscheme solarized8
+" colorscheme space-vim-dark
+" colorscheme tender
+" colorscheme termschool
+" colorscheme twilight256
+" colorscheme two-firewatch
+" colorscheme wombat256mod
+" colorscheme yellow-moon
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
@@ -132,8 +191,8 @@ set smartcase
 set showmatch
 
 " Copypaste
-noremap <Leader>y "*y
-noremap <Leader>p "*p
+noremap <C-y> "+y
+noremap <C-p> "+p
 
 " clear search
 map <leader><space> :let @/=''<cr> " clear search
@@ -194,9 +253,11 @@ map <C-e> :NERDTreeToggle<CR>
 
 " Autocpletion (some default stuff)
 " for words
-inoremap <C-Space> <C-n>
+" " Remap code completion to Ctrl+Space {{{2
+inoremap <Nul> <C-x><C-o>
+inoremap <Nul> <C-n>
 " for files
-inoremap <S-Space> <C-f>
+" inoremap <S-Space> <C-f>
 
 " vim-multiple-cursors
 " let g:multi_cursor_use_default_mapping=0
@@ -227,7 +288,7 @@ set expandtab
 " Automatically deletes all tralling whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
-autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype gitcommit setlocal spell textwidth=80
 autocmd Filetype tex :call Latex_config()
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
 autocmd FileType python :call Python_config()
@@ -288,6 +349,9 @@ autocmd FileType make :call Make_config()
 :  set showmatch
 :  " intelligent comments
 :  setlocal commentstring=//\ %s
+:  let g:clang_c_options = '-std=gnu11'
+:  let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+:  let g:clang_compilation_database = '~/dev/env/'
 :  " set comments=sl:/*,mb:\ *,elx:\ */
 :endfunction
 

@@ -1,15 +1,5 @@
 [user]
-	email = ivan.severin.m@gmail.com
-	name = ivan-severin
-[http]
-[https]
-
-[diff "pandoc"]
-  textconv=pandoc --to=markdown
-  prompt = false
-[alias]
-  wdiff = diff --word-diff=color --unified=1
-[diff "docx"]
-	textconv = pandoc
+	name = Ivan Severin
+	email = ivan.severin@globallogic.com
 [color]
 	ui = auto
