@@ -156,7 +156,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec_always --no-startup-id "killall -q compton; compton"
+# exec_always --no-startup-id "killall -q compton; compton"
 # exec_always --no-startup-id "killall -q nm-applet; nm-applet"
 
 # # window colors
@@ -204,6 +204,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch
 exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:win_space_toggle"
 
 
+# exec_always "feh --bg-center --randomize  ~/Pictures/Wallpapers/"
 exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
 
 #startup apps

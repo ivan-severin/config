@@ -9,8 +9,9 @@
 ! #include ".colors/tango"
 
 ! Appearance
-URxvt*font: xft:DejaVu Sans Mono for Powerline:size=9
-!URxvt*font: xft:Inconsolata for Powerline:size=10
+URxvt*font: xft:Source Code Pro for Powerline:size=10
+! URxvt*font: xft:DejaVu Sans Mono for Powerline:size=9
+! URxvt*font: xft:Inconsolata for Powerline:size=10
 URxvt.intensityStyles: false
 URxvt.boldMode:       true
 URxvt.skipBuiltinGlyphs: true
@@ -51,7 +52,7 @@ URxvt.transparent:   false
 !URxvt.shading:       0
 
 ! URLs
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher,font-size
 URxvt.url-select.launcher:  chromium
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
@@ -63,10 +64,12 @@ URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 
 ! Increace fonts
-! URxvt.keysym.M-Up:           perl:font-size:increase
-! URxvt.keysym.M-Down:         perl:font-size:decrease
-! URxvt.keysym.M-S-Up:         perl:font-size:incglobal
-! URxvt.keysym.M-S-Down:       perl:font-size:decglobal
+URxvt.keysym.M-Up:     perl:font-size:increase
+URxvt.keysym.M-Down:   perl:font-size:decrease
+URxvt.keysym.M-S-Up:   perl:font-size:incglobal
+URxvt.keysym.M-S-Down: perl:font-size:decglobal
+URxvt.keysym.M-equal:  perl:font-size:reset
+URxvt.keysym.M-slash:  perl:font-size:show
 
 URxvt.iso14755:              false
 URxvt.iso14755_52:           false
