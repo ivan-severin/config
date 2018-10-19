@@ -1,5 +1,6 @@
 !scheme: pnevma
-*foreground: #6F6767
+!*foreground: #6F6767
+*foreground:  #c0c5ce
 *background: #3A3636
 *color0: #363636
 *color8: #424242

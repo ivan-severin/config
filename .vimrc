@@ -1,7 +1,8 @@
+" Encoding
+set encoding=utf-8
 
 " Don't try to be vi compatible
 set nocompatible
-
 
 " Turn on syntax highlighting
 syntax on
@@ -18,74 +19,53 @@ set modelines=0
 " Show line numbers
 set number
 
-" Show file stats
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-" pathogen  .. needs by cscope
-execute pathogen#infect()
-
-
-call vundle#begin()
-
-"  let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 "  plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
-"  gitdiff tool
-Plugin 'jreybert/vimagit'
+" Git-diff tool
+Plug 'jreybert/vimagit'
 
-" C++ additional syntax highlighting
-Plugin 'octol/vim-cpp-enhanced-highlight'
+"  C++ additional syntax highlighting
+Plug 'octol/vim-cpp-enhanced-highlight'
 
 " C++ static checker
-" Plugin 'vim-syntastic/syntastic'
-
-"  Helpers for C and C++
-" Plugin 'luchermitte/lh-cpp' (doesnt work)
-
-"  CScope maps for kernel
-"  Plugin 'gnattishness/cscope_maps'
+" Plug 'vim-syntastic/syntastic'
 
 "  File Browsing
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 "  Python Auto-Indentation
-Plugin 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/indentpython.vim'
 
 "  Auto-Complete
-Plugin 'Valloric/YouCompleteMe'
-" Plugin 'rdnetto/YCM-Generator'
-"  C++ autocomplete
-" Plugin 'justmao945/vim-clang.git'
+Plug 'Valloric/YouCompleteMe'
 
 "  Sublime Text style multiple selections
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 "  Comments
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 
-"  Folding big classes
-Plugin 'tmhedberg/SimpylFold'
+" Folding big classes
+" Plug 'tmhedberg/SimpylFold'
 
-"  latex preview
-" Plugin 'xuhdev/vim-latex-live-preview'
+" complete brackets, parentheses
+Plug 'jiangmiao/auto-pairs'
 
-" Colorscheme pack
-Plugin 'rafi/awesome-vim-colorschemes'
+" Color scheme
+Plug 'morhetz/gruvbox'
+Plug 'tpozzi/sidonia'
+Plug 'alessandroyorba/sierra'
 
 " Airline theme
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-
-call vundle#end()            " required
-
+call plug#end()
 
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
 
 " Enable tabs
 let g:airline#extensions#tabline#enabled = 1
@@ -98,88 +78,27 @@ set laststatus=0
 let g:airline_theme='distinguished'
 let g:airline_powerline_fonts = 1
 
-
-" Visualize tabs and newlines
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 " Uncomment this to enable by default:
 " set list " To enable by default
+
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 " Color scheme (terminal)
-set t_Co=256
+" set t_Co=256
 " set background=dark
-" let g:solarized_termcolors=256
-" let g:solarized_termtrans=1
-
-
-" Colorscheme pack:
-
-" colorscheme sidonia
-" colorscheme afterglow
-" colorscheme alduin
-" colorscheme anderson
-" colorscheme angr
-" colorscheme apprentice
-" colorscheme challenger_deep
-" colorscheme deep-space
-" colorscheme deus
-" colorscheme dracula
-" colorscheme focuspoint
-" colorscheme github
-" colorscheme gotham
-" colorscheme gruvbox
-" colorscheme happy_hacking
-" colorscheme hybrid_material
-" colorscheme hybrid_reverse
-" colorscheme hybrid
-" colorscheme iceberg
-colorscheme jellybeans
-" colorscheme lucid
-" colorscheme lucius
-" colorscheme meta5
-" colorscheme minimalist
-" colorscheme molokai
-" colorscheme molokayo
-" colorscheme nord
-" colorscheme OceanicNextLight
-" colorscheme OceanicNext
-" colorscheme onedark
-" colorscheme one
-" colorscheme orange-moon
-" colorscheme orbital
-" colorscheme PaperColor
-" colorscheme paramount
-" colorscheme parsec
-" colorscheme pink-moon
-" colorscheme pyte
-" colorscheme rakr
-" colorscheme rdark-terminal2
-" colorscheme scheakur
-" colorscheme seoul256-light
-" colorscheme seoul256
+colorscheme sidonia
 " colorscheme sierra
-" colorscheme solarized8_flat
-" colorscheme solarized8_high
-" colorscheme solarized8_low
-" colorscheme solarized8
-" colorscheme space-vim-dark
-" colorscheme tender
-" colorscheme termschool
-" colorscheme twilight256
-" colorscheme two-firewatch
-" colorscheme wombat256mod
-" colorscheme yellow-moon
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark="soft"
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 
-" Encoding
-set encoding=utf-8
+" Visualize tabs and newlines
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 " Searching
-" nnoremap / /\v
-" vnoremap / /\v
 set hlsearch
 set incsearch
 set ignorecase
@@ -198,9 +117,8 @@ set foldmethod=indent
 set foldlevel=99
 
 " Enable folding with the spacebar
-nnoremap <leader>f za
-let g:SimpylFold_docstring_preview=1
-
+" nnoremap <leader>f za
+" let g:SimpylFold_docstring_preview=1
 
 " Cursor motion
 " set scrolloff=3
@@ -208,36 +126,28 @@ let g:SimpylFold_docstring_preview=1
 " set matchpairs+=<:> " use % to jump between pairs
 " runtime! macros/matchit.vim
 
-
-" Screen/tmux can also handle xterm mousiness, but Vim doesn't
-" detect it by default.
-" if &term == "screen"
-" set ttymouse=xterm2
-" endif
-
-" if v:version >= 704 && &term =~ "^screen"
-" " Odds are good that this is a modern tmux, so let's pick the
-" " best mouse-handling mode.
-" set ttymouse=sgr
-" endif
-
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
 
 " Allow hidden buffers
-set hidden
+" set hidden
 
 " Rendering
-set ttyfast
+" set ttyfast
 
 " Status bar
-set laststatus=2
+" set laststatus=2
+"
+"
+" nmap ghp <Plug>GitGutterPreviewHunk
+" nmap ghs <Plug>GitGutterStageHunk
+" nmap ghu <Plug>GitGutterUndoHunk
+"
 
 " Last line
 set showmode
 set showcmd
-
 
 " Comment line (plugin)
 inoremap <C-_> gc
@@ -248,7 +158,6 @@ map <C-_> gc<Right>
 " vnoremap <S-?> v_gc
 " map <C-\>> gc<Right>
 
-
 "  File browser
 map <C-e> :NERDTreeToggle<CR>
 
@@ -257,7 +166,6 @@ map <C-e> :NERDTreeToggle<CR>
 " " Remap code completion to Ctrl+Space {{{2
 inoremap <Nul> <C-x><C-o>
 inoremap <Nul> <C-n>
-
 
 " Moving between tabs\buffers
 nnoremap <silent> <C-Right> <c-w>l
@@ -270,8 +178,6 @@ map <C-l> :bnext<CR>
 map <C-k> :bprev<CR>
 map <C-J> :bd<CR>
 nnoremap <C-t> :tabnew<cr>
-
-
 
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
@@ -303,23 +209,11 @@ set expandtab
 autocmd BufWritePre * %s/\s\+$//e
 
 autocmd Filetype gitcommit setlocal spell textwidth=80
-autocmd Filetype tex :call Latex_config()
+
+autocmd Filetype xdefaults setlocal commentstring=!\ %s
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
 autocmd FileType python :call Python_config()
 autocmd FileType make :call Make_config()
-autocmd FileType bp :call Bp_config()
-
-
-" For Android.bp's
-:function Bp_config()
-:  " configure tabwidth and insert spaces instead of tabs
-:  set tabstop=4
-:  set softtabstop=4
-:  set shiftwidth=4
-:  set expandtab
-:  set textwidth=100
-:  setlocal commentstring=//\ %s
-:endfunction
 
 " For Android.mk's
 :function Make_config()
@@ -392,55 +286,7 @@ autocmd FileType bp :call Bp_config()
 :  " let g:syntastic_auto_loc_list = 1
 :  " let g:syntastic_check_on_open = 1
 :  " let g:syntastic_check_on_wq = 0
-
 :endfunction
-
-
-" LATEX config
-:function Latex_config()
-:  setl updatetime=10000
-:  let g:livepreview_previewer = 'open -a Preview'
-:  map <leader>s :LLPStartPreview<CR>
-:  setlocal commentstring=%\ %s
-:
-:
-:  inoremap <leader>fr \begin{frame}<Enter>\frametitle{}<Enter><Enter><++><Enter><Enter>\end{frame}<Enter><Enter><++><Esc>6kf}i
-:  inoremap <leader>em \emph{}<++><Esc>T{i
-:  inoremap <leader>bf \textbf{}<++><Esc>T{i
-:  vnoremap <leader> <ESC>`<i\{<ESC>`>2la}<ESC>?\\{<Enter>a
-:  inoremap <leader>it \textit{}<++><Esc>T{i
-:
-:  inoremap <leader>ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item<Space>
-:  inoremap <leader>ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item<Space>
-:  inoremap <leader>li <Enter>\item<Space>
-:
-:  inoremap <leader>ref \ref{}<Space><++><Esc>T{i
-:  inoremap <leader>tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><Esc>4kA{}<Esc>i
-:  inoremap <leader>ot \begin{tableau}<Enter>\inp{<++>}<Tab>\const{<++>}<Tab><++><Enter><++><Enter>\end{tableau}<Enter><Enter><++><Esc>5kA{}<Esc>i
-:  inoremap <leader>sc \textsc{}<Space><++><Esc>T{i
-:
-:  inoremap <leader>chap \chapter{}<Enter><Enter><++><Esc>2kf}i
-:  inoremap <leader>sec \section{}<Enter><Enter><++><Esc>2kf}i
-:  inoremap <leader>ssec \subsection{}<Enter><Enter><++><Esc>2kf}i
-:  inoremap <leader>sssec \subsubsection{}<Enter><Enter><++><Esc>2kf}i
-:  inoremap <leader>st <Esc>F{i*<Esc>f}i
-:
-:  inoremap <leader>beg \begin{DELRN}<Enter><++><Enter>\end{DELRN}<Enter><Enter><++><Esc>4k0fR:MultipleCursorsFind<Space>DELRN<Enter>c
-:  inoremap <leader>up <Esc>/usepackage<Enter>o\usepackage{}<Esc>i
-:  nnoremap <leader>up /usepackage<Enter>o\usepackage{}<Esc>i
-:  inoremap <leader>tt \texttt{}<Space><++><Esc>T{i
-:  inoremap <leader>bt {\blindtext}
-:  inoremap <leader>nu $\varnothing$
-:  inoremap <leader>col \begin{columns}[T]<Enter>\begin{column}{.5\textwidth}<Enter><Enter>\end{column}<Enter>\begin{column}{.5\textwidth}<Enter><++><Enter>\end{column}<Enter>\end{columns}<Esc>5kA
-:  inoremap <leader>rn (\ref{})<++><Esc>F}i
-:  inoremap <leader>ci (\cite{})<++><Esc>F}i
-:
-:  inoremap <leader>ent (\entry{<++>}{<++>}{<++>}<Enter>{<++>}<Enter>{<++>}{<++>})<Enter><Enter><++><Esc>/<++><Enter>"_c4l
-:
-:  inoremap <leader>m $$<Space><++><Esc>2T$i
-:  inoremap <leader>M $$$$<Enter><Enter><++><Esc>2k$hi
-:endfunction
-
 
 "  Python config
 :function Python_config()

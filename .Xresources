@@ -8,16 +8,16 @@
 ! #include ".colors/solarized_light"
 ! #include ".colors/tango"
 
+
 ! Appearance
-URxvt*font: xft:Source Code Pro for Powerline:size=10
+URxvt*font: xft:Roboto Mono for Powerline:pixelsize=14,xft:DejaVu Sans Mono for Powerline:size=10
+! URxvt*boldFont: xft:Inconsolata for Powerline:size=10
 ! URxvt*font: xft:DejaVu Sans Mono for Powerline:size=9
-! URxvt*font: xft:Inconsolata for Powerline:size=10
+
 URxvt.intensityStyles: false
 URxvt.boldMode:       true
 URxvt.skipBuiltinGlyphs: true
 URxvt.loginShell: true
-URxvt*title: urxvt
-URxvt*termName: rxvt-unicode-256color
 URxvt*urgentOnBell: true
 
 URxvt.cursorBlink:          true

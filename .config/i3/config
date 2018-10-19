@@ -156,7 +156,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# exec_always --no-startup-id "killall -q compton; compton"
+exec_always --no-startup-id "killall -q compton; compton"
 # exec_always --no-startup-id "killall -q nm-applet; nm-applet"
 
 # # window colors
