@@ -1,28 +1,65 @@
 ! #include ".colors/badwolf"
 ! #include ".colors/felix"
 ! #include ".colors/green"
-#include ".colors/ocean-dark"
+! #include ".colors/ocean-dark"
 ! #include ".colors/pnemva"
 ! #include ".colors/sloarized.dark"
 ! #include ".colors/solarized"
 ! #include ".colors/solarized_light"
 ! #include ".colors/tango"
+#include ".colors/fall_green"
 
+! #include ".colors/test/pretty"
+! #include ".colors/test/DebianThemeURxvt"
+! #include ".colors/test/blue white purpe calm"
+! #include ".colors/test/i have no name"
+! #include ".colors/test/light dark"
+! #include ".colors/test/rando light purp"
+! #include ".colors/test/rando mac fag"
+! #include ".colors/test/all colorful and shit"
+! #include ".colors/test/HomeMade Cotton Candy"
+! #include ".colors/test/Good rainbow"
+! #include ".colors/test/LightPurpleGreen"
+! #include ".colors/test/calm girl"
+! #include ".colors/test/never-seen"
+! #include ".colors/test/never-seen/g"
+! #include ".colors/test/brown slug"
+! #include ".colors/test/i'm not gentoo"
+! #include ".colors/test/gray blue chill brah"
+! #include ".colors/test/something"
+! #include ".colors/test/julie"
+! #include ".colors/test/a new one"
+! #include ".colors/test/ronery flower"
+! #include ".colors/test/black blue space"
+! #include ".colors/test/purplish"
+! #include ".colors/test/smooth white  blue"
+! #include ".colors/test/Jelly Beans yo"
+! #include ".colors/test/And yet another random"
+! #include ".colors/test/tree green brown"
+! #include ".colors/test/dark violet good"
+! #include ".colors/test/the arch dude"
+! #include ".colors/test/tree bark"
+! #include ".colors/test/green white URxvt"
+! #include ".colors/test/mix a lot"
+! #include ".colors/test/a theme"
+! #include ".colors/test/arch dude remix"
+! #include ".colors/test/holiday pine"
+
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintfull
 
 ! Appearance
-URxvt*font: xft:Roboto Mono for Powerline:pixelsize=14,xft:DejaVu Sans Mono for Powerline:size=10
-! URxvt*boldFont: xft:Inconsolata for Powerline:size=10
-! URxvt*font: xft:DejaVu Sans Mono for Powerline:size=9
+URxvt.font: xft:Roboto Mono for Powerline:pixelsize=14,xft:DejaVu Sans Mono for Powerline:pixelsize=14
 
+URxvt.internalBorder: 12
 URxvt.intensityStyles: false
 URxvt.boldMode:       true
-URxvt.skipBuiltinGlyphs: true
+! URxvt.skipBuiltinGlyphs: true
 URxvt.loginShell: true
-URxvt*urgentOnBell: true
-
-URxvt.cursorBlink:          true
-URxvt.cursorUnderline:      false
-
+URxvt.urgentOnBell: true
 
 ! ScrollBar
 URxvt.scrollBar:            false
@@ -38,7 +75,6 @@ URxvt.buffered:             true
 URxvt.pointerBlank:         true
 URxvt.underlineURLs:        true
 URxvt.saveLines:            4096
-
 
 ! Ctrl+Arrows
 URxvt.keysym.Control-Up:     \033[1;5A
@@ -78,10 +114,12 @@ URxvt.keysym.M-v:            perl:clipboard:paste
 
 ! rofi colors
 rofi.color-enabled:	true
-rofi.color-window:	#000, #000, #000
-rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
-rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
-rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
+
+! State:            'bg',     'fg',     'bgalt',  'hlbg',   'hlfg'
+rofi.color-window:	#000,     #000,     #000
+rofi.color-normal:	#111,     #819396,  #222,     #008ed4,  #ffffff
+rofi.color-active:	#002b37,  #008ed4,  #003643,  #008ed4,  #66c6ff
+rofi.color-urgent:	#002b37,  #da4281,  #003643,  #008ed4,  #890661
 
 rofi.fake-transparency:	true
 rofi.lines: 5

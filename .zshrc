@@ -8,12 +8,12 @@ source /usr/share/zsh/share/antigen.zsh
 #-----------------------------
 # Source some stuff
 #-----------------------------
-if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+#   . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fi
 
-BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 
 HISTFILE=~/.zsh_history
@@ -26,8 +26,8 @@ SAVEHIST=10000
 alias ls="ls --color -F"
 alias ll="ls --color -lh"
 alias spm="sudo pacman"
-alias gr="gvim --remote-silent"
 alias vr="vim --remote-silent"
+alias v="vim"
 alias _="sudo"
 
 #------------------------------
@@ -60,8 +60,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' insert-tab pending
 
 #- buggy
-# zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
-# zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BSorry, no matches for: %d%b'
 #-/buggy
 
 zstyle ':completion:*:pacman:*' force-list always
@@ -90,11 +90,11 @@ autoload -U colors zsh/terminfo
 colors
 
 autoload -U promptinit; promptinit
-# prompt spaceship
 prompt pure
 
-# OPtions
-#
+#------------------------------
+# Some options
+#------------------------------
 setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
@@ -105,9 +105,10 @@ setopt HIST_REDUCE_BLANKS
 #
 antigen bundle git
 antigen bundle repo
-
-# antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
 antigen bundle chrissicool/zsh-bash
+antigen bundle twang817/zsh-clipboard
+# antigen bundle zdharma/fast-syntax-highlighting
 
 antigen apply
 

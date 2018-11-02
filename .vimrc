@@ -16,8 +16,6 @@ let mapleader = ";"
 " Security
 set modelines=0
 
-" Show line numbers
-set number
 
 call plug#begin('~/.vim/plugged')
 
@@ -85,12 +83,15 @@ let g:airline_powerline_fonts = 1
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 " Color scheme (terminal)
-" set t_Co=256
-" set background=dark
-colorscheme sidonia
+set t_Co=256
+set background=dark
+
 " colorscheme sierra
-" colorscheme gruvbox
+colorscheme gruvbox
 " let g:gruvbox_contrast_dark="soft"
+
+" Show line numbers
+set number
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
