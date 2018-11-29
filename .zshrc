@@ -29,7 +29,7 @@ alias spm="sudo pacman"
 alias vr="vim --remote-silent"
 alias v="vim"
 alias _="sudo"
-
+alias ash="adb shell su system"
 #------------------------------
 # ShellFuncs
 #------------------------------

@@ -28,6 +28,9 @@ Plug 'jreybert/vimagit'
 "  C++ additional syntax highlighting
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+" Clang format code
+Plug 'rhysd/vim-clang-format'
+
 " C++ static checker
 " Plug 'vim-syntastic/syntastic'
 
@@ -38,7 +41,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/indentpython.vim'
 
 "  Auto-Complete
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 "  Sublime Text style multiple selections
 Plug 'terryma/vim-multiple-cursors'
@@ -53,6 +56,7 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 
 " Color scheme
+Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
 Plug 'tpozzi/sidonia'
 Plug 'alessandroyorba/sierra'
@@ -72,10 +76,10 @@ let g:airline#extensions#tabline#enabled = 1
 set laststatus=0
 
 " Apply theme
-" let g:airline_theme='minimalist'
-let g:airline_theme='distinguished'
+let g:airline_theme='minimalist'
+" let g:airline_theme='distinguished'
 let g:airline_powerline_fonts = 1
-
+let g:multi_cursor_start_word_key      = '<C-n>'
 " Uncomment this to enable by default:
 " set list " To enable by default
 
@@ -87,7 +91,9 @@ set t_Co=256
 set background=dark
 
 " colorscheme sierra
+" colorscheme sidonia
 colorscheme gruvbox
+" colorscheme minimalist
 " let g:gruvbox_contrast_dark="soft"
 
 " Show line numbers
@@ -110,12 +116,21 @@ set showmatch
 noremap <C-y> "+y
 noremap <C-p> "+p
 
+" black hole delete
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+xnoremap <leader>p "_dP
+
+" new line without insert
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
+
 " clear search
 map <leader><space> :let @/=''<cr> " clear search
 
 " Enable folding
-set foldmethod=indent
-set foldlevel=99
+" set foldmethod=indent
+" set foldlevel=99
 
 " Enable folding with the spacebar
 " nnoremap <leader>f za
@@ -135,16 +150,21 @@ nnoremap k gk
 " set hidden
 
 " Rendering
-" set ttyfast
+set ttyfast
 
 " Status bar
 " set laststatus=2
-"
-"
-" nmap ghp <Plug>GitGutterPreviewHunk
-" nmap ghs <Plug>GitGutterStageHunk
-" nmap ghu <Plug>GitGutterUndoHunk
-"
+
+" Git shortcuts
+nmap Gp <Plug>GitGutterPreviewHunk
+nmap Gs <Plug>GitGutterStageHunk
+nmap Gu <Plug>GitGutterUndoHunk
+
+nmap G] <Plug>GitGutterNextHunk
+nmap G[ <Plug>GitGutterPrevHunk
+
+" let magit interract with gutter
+let g:magit_refresh_gitgutter=1
 
 " Last line
 set showmode
@@ -183,7 +203,7 @@ nnoremap <C-t> :tabnew<cr>
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
 
-" " Default mapping
+" Default mapping
 let g:multi_cursor_start_word_key      = '<C-n>'
 let g:multi_cursor_select_all_word_key = '<A-n>'
 let g:multi_cursor_start_key           = 'g<C-n>'
@@ -204,6 +224,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+setlocal commentstring=//\ %s
 
  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " Automatically deletes all tralling whitespace on save.
@@ -212,6 +233,7 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd Filetype gitcommit setlocal spell textwidth=80
 
 autocmd Filetype xdefaults setlocal commentstring=!\ %s
+autocmd Filetype vim setlocal commentstring=\"\ %s
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
 autocmd FileType python :call Python_config()
 autocmd FileType make :call Make_config()
@@ -243,8 +265,6 @@ autocmd FileType make :call Make_config()
 :  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 :  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 :  autocmd BufWinLeave * call clearmatches()
-:
-:
 :  " disable vi compatibility (emulation of old bugs)
 :  set nocompatible
 :
@@ -260,33 +280,16 @@ autocmd FileType make :call Make_config()
 :  set shiftwidth=4
 :  set expandtab
 :  set textwidth=100
-:
-:  " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-:  " set textwidth=120
-:  " turn syntax highlighting on
-:  " turn line numbers on
 :  set number
-:
 :  " highlight matching braces
 :  set showmatch
-:  " intelligent comments
+:  " comments
 :  setlocal commentstring=//\ %s
-:  " aoutocomplete settings
-:  " let g:clang_dotfile = '.clang.includes'
-:  " let g:clang_c_options = '-std=gnu11'
-:  " let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
-:  " let g:clang_compilation_database = '~/dev/env/'
-:  " set comments=sl:/*,mb:\ *,elx:\ */
-:
-:  " Some statick checker
-:  " set statusline+=%#warningmsg#
-:  " set statusline+=%{SyntasticStatuslineFlag()}
-:  " set statusline+=%*
-:  " let g:syntastic_clang_tidy_config_file="~/.clang.includes"
-:  " let g:syntastic_always_populate_loc_list = 1
-:  " let g:syntastic_auto_loc_list = 1
-:  " let g:syntastic_check_on_open = 1
-:  " let g:syntastic_check_on_wq = 0
+:  " Clang formaet setting :TODO configure
+:  " nmap <Leader>C :ClangFormatAutoToggle<CR>
+:  " autocmd FileType c ClangFormatAutoEnable
+:  " vnoremap <buffer><Leader>cf :ClangFormat<CR>
+:  " nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 :endfunction
 
 "  Python config
@@ -299,7 +302,7 @@ autocmd FileType make :call Make_config()
 :  set autoindent
 :  set fileformat=unix
 :  "  match BadWhitespace /\s\+$/
-:  let g:ycm_autoclose_preview_window_after_completion=1
-:  map <leader>space  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+:  "  let g:ycm_autoclose_preview_window_after_completion=1
+:  "  map <leader>space  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 :endfunction
 
