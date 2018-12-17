@@ -60,9 +60,6 @@
 # My global Git excludes file (acts as a global .gitignore)
 !.gitexcludes
 
-# Mercurial config (yup, stored in a Git repository. Take that, hg!)
-!.hgrc
-
 # IPython config (need directory here so gitignore works correctly.
 # This won't actually pull in the other contetns of the dir, though.
 # Which is good as all I care about is the...
@@ -73,11 +70,6 @@
 # Virtualenvwrapper hooks
 !.virtualenvs
 !.virtualenvs/postmkvirtualenv
-
-# IRb config
-!.irbrc
-# RVM config
-!.rvmrc
 
 # Vim plugins, ftplugins, syntax etc etc
 !.vim
@@ -103,8 +95,6 @@
 !bin
 !bin/*
 bin/.*.swp
-# Concourse CLI; changes depending on target version
-bin/fly
 
 # Config for local daemons (e.g. squid)
 !etc
@@ -117,32 +107,3 @@ etc/clusto*.conf
 !.tmux
 !.tmux/*.yml
 
-# Gem config
-!.gemrc
-
-# Mutt
-!.muttrc
-!.mutt
-!.mutt/*
-
-# RTorrent
-!.rtorrent.rc
-
-# Ack
-!.ackrc
-
-# Teamocil
-!.teamocil
-!.teamocil/*
-
-# Synergy
-!.synergy.conf
-
-# Leiningen (Clojure)
-!.lein
-!.lein/profiles.clj
-
-# Hammerspoon (Lua-based OS X automation tool)
-!.hammerspoon
-!.hammerspoon/*
-.hammerspoon/.*.swp
