@@ -1,20 +1,4 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
- # export PATH=$HOME/dev/board/rowboat-android/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin:$PATH
-export USE_CCACHE=1
-
 source /usr/share/zsh/share/antigen.zsh
-
-#-----------------------------
-# Source some stuff
-#-----------------------------
-# if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-#   . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# fi
-
-# BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
@@ -30,6 +14,7 @@ alias vr="vim --remote-silent"
 alias v="vim"
 alias _="sudo"
 alias ash="adb shell su system"
+
 #------------------------------
 # ShellFuncs
 #------------------------------
@@ -74,9 +59,7 @@ zstyle ':completion:*:kill:*'   force-list always
 
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
-
-
-
+# zstyle -d ':prompt-theme cleanup'
 #------------------------------
 # Bind Keys
 #------------------------------
@@ -86,9 +69,6 @@ bindkey "^[[B" history-beginning-search-forward
 #------------------------------
 # Prompt
 #------------------------------
-autoload -U colors zsh/terminfo
-colors
-
 autoload -U promptinit; promptinit
 prompt pure
 
@@ -100,17 +80,20 @@ setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share 
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 
-#
+#------------------------------
 # Antigen stuff
+#------------------------------
+#
+export ANTIGEN_DEBUG_LOG=/tmp/adlog
+export ANTIGEN_LOG=/tmp/alog
 #
 antigen bundle git
 antigen bundle repo
 antigen bundle zsh-users/zsh-completions
-antigen bundle chrissicool/zsh-bash
 antigen bundle twang817/zsh-clipboard
-# antigen bundle zdharma/fast-syntax-highlighting
-
+# antigen use oh-my-zsh
+# antigen theme https://github.com/wesbos/Cobalt2-iterm/ cobalt2
+# antigen theme --loc ~/.oh-my-zsh/themes/cobalt2
+antigen bundle chrissicool/zsh-bash
 antigen apply
-
-
 

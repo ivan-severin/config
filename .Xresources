@@ -1,81 +1,23 @@
 ! #include ".colors/badwolf"
-! #include ".colors/felix"
-! #include ".colors/green"
-#include ".colors/ocean-dark"
-! #include ".colors/pnemva"
-! #include ".colors/sloarized.dark"
-! #include ".colors/solarized"
-! #include ".colors/solarized_light"
-! #include ".colors/tango"
-! #include ".colors/fall_green"
-
-! #include ".colors/test/pretty"
-! #include ".colors/test/DebianThemeURxvt"
-! #include ".colors/test/blue white purpe calm"
-! #include ".colors/test/i have no name"
-! #include ".colors/test/light dark"
-! #include ".colors/test/rando light purp"
-! #include ".colors/test/rando mac fag"
-! #include ".colors/test/all colorful and shit"
-! #include ".colors/test/HomeMade Cotton Candy"
-! #include ".colors/test/Good rainbow"
-! #include ".colors/test/LightPurpleGreen"
-! #include ".colors/test/calm girl"
-! #include ".colors/test/never-seen"
-! #include ".colors/test/never-seen/g"
-! #include ".colors/test/brown slug"
-! #include ".colors/test/i'm not gentoo"
-! #include ".colors/test/gray blue chill brah"
-! #include ".colors/test/something"
-! #include ".colors/test/julie"
-! #include ".colors/test/a new one"
-! #include ".colors/test/ronery flower"
-! #include ".colors/test/black blue space"
-! #include ".colors/test/purplish"
-! #include ".colors/test/smooth white  blue"
-! #include ".colors/test/Jelly Beans yo"
-! #include ".colors/test/And yet another random"
-! #include ".colors/test/tree green brown"
-! #include ".colors/test/dark violet good"
-! #include ".colors/test/the arch dude"
-! #include ".colors/test/tree bark"
-! #include ".colors/test/green white URxvt"
-! #include ".colors/test/mix a lot"
-! #include ".colors/test/a theme"
-! #include ".colors/test/arch dude remix"
-! #include ".colors/test/holiday pine"
-
-! Xft.dpi:        96
-! Xft.antialias:  true
-! Xft.rgba:       rgb
-! Xft.hinting:    true
-! Xft.hintstyle:  hintfull
+! #include ".colors/ocean-dark"
+#include ".colors/pnemva"
+! #include ".colors/solarized_dark"
+! #include ".colors/hybrid"
+! #include ".colors/sidonia"
 
 ! Appearance
 URxvt.font: xft:Roboto Mono for Powerline:pixelsize=14,xft:DejaVu Sans Mono for Powerline:pixelsize=14
 ! URxvt.font: xft:Inconsolata:size=12,xft:DejaVu Sans Mono for Powerline:size=12
 
-! URxvt.internalBorder: 12
 URxvt.intensityStyles: false
 URxvt.boldMode:       true
-! URxvt.skipBuiltinGlyphs: true
-! URxvt.loginShell: true
 URxvt.urgentOnBell: true
-URxvt.cursorUnderline: true
+URxvt.cursorUnderline: false
 URxvt.cursorBlink: true
 
 ! ScrollBar
 URxvt.scrollBar:            false
 URxvt.scrollBar_right:      false
-! URxvt.scrollstyle:          plain
-! URxvt.jumpScroll:           false
-
-! URxvt.scrollWithBuffer:     true
-! URxvt.scrollTtyKeypress:    true
-! URxvt.scrollTtyOutput:      true
-
-! URxvt.buffered:             true
-! URxvt.pointerBlank:         true
 URxvt.underlineURLs:        true
 URxvt.saveLines:            4096
 

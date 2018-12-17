@@ -1,6 +1,5 @@
 " Encoding
 set encoding=utf-8
-
 " Don't try to be vi compatible
 set nocompatible
 
@@ -16,7 +15,6 @@ let mapleader = ";"
 " Security
 set modelines=0
 
-
 call plug#begin('~/.vim/plugged')
 
 "  plugin on GitHub repo
@@ -31,17 +29,11 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 " Clang format code
 Plug 'rhysd/vim-clang-format'
 
-" C++ static checker
-" Plug 'vim-syntastic/syntastic'
-
 "  File Browsing
 Plug 'scrooloose/nerdtree'
 
 "  Python Auto-Indentation
 Plug 'vim-scripts/indentpython.vim'
-
-"  Auto-Complete
-" Plug 'Valloric/YouCompleteMe'
 
 "  Sublime Text style multiple selections
 Plug 'terryma/vim-multiple-cursors'
@@ -49,39 +41,21 @@ Plug 'terryma/vim-multiple-cursors'
 "  Comments
 Plug 'tpope/vim-commentary'
 
-" Folding big classes
-" Plug 'tmhedberg/SimpylFold'
-
 " complete brackets, parentheses
 Plug 'jiangmiao/auto-pairs'
 
 " Color scheme
-Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
-Plug 'tpozzi/sidonia'
-Plug 'alessandroyorba/sierra'
 
-" Airline theme
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Buffer visible tabs
+Plug 'ap/vim-buftabline'
 
 call plug#end()
 
 filetype plugin indent on    " required
 
-" Enable tabs
-let g:airline#extensions#tabline#enabled = 1
-
-" turnoff statusline
+" TURN OFF statusline
 set laststatus=0
-
-" Apply theme
-let g:airline_theme='minimalist'
-" let g:airline_theme='distinguished'
-let g:airline_powerline_fonts = 1
-let g:multi_cursor_start_word_key      = '<C-n>'
-" Uncomment this to enable by default:
-" set list " To enable by default
 
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
@@ -90,11 +64,8 @@ map <leader>l :set list!<CR> " Toggle tabs and EOL
 set t_Co=256
 set background=dark
 
-" colorscheme sierra
-" colorscheme sidonia
 colorscheme gruvbox
-" colorscheme minimalist
-" let g:gruvbox_contrast_dark="soft"
+let g:gruvbox_contrast_dark="soft"
 
 " Show line numbers
 set number
@@ -112,6 +83,9 @@ set ignorecase
 set smartcase
 set showmatch
 
+" Scroll limit
+set scrolloff=5
+
 " Copypaste
 noremap <C-y> "+y
 noremap <C-p> "+p
@@ -128,32 +102,12 @@ nmap <CR> o<Esc>
 " clear search
 map <leader><space> :let @/=''<cr> " clear search
 
-" Enable folding
-" set foldmethod=indent
-" set foldlevel=99
-
-" Enable folding with the spacebar
-" nnoremap <leader>f za
-" let g:SimpylFold_docstring_preview=1
-
-" Cursor motion
-" set scrolloff=3
-" set backspace=indent,eol,start
-" set matchpairs+=<:> " use % to jump between pairs
-" runtime! macros/matchit.vim
+" mouse scrolling
+set mouse=a
 
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
-
-" Allow hidden buffers
-" set hidden
-
-" Rendering
-set ttyfast
-
-" Status bar
-" set laststatus=2
 
 " Git shortcuts
 nmap Gp <Plug>GitGutterPreviewHunk
@@ -173,11 +127,8 @@ set showcmd
 " Comment line (plugin)
 inoremap <C-_> gc
 vnoremap <C-_> v_gc
-map <C-_> gc<Right>
-
-" inoremap <S-> gc
-" vnoremap <S-?> v_gc
-" map <C-\>> gc<Right>
+nmap <C-_> gc<Right>
+imap <C-_> <C-o><C-_>
 
 "  File browser
 map <C-e> :NERDTreeToggle<CR>
@@ -288,7 +239,7 @@ autocmd FileType make :call Make_config()
 :  " Clang formaet setting :TODO configure
 :  " nmap <Leader>C :ClangFormatAutoToggle<CR>
 :  " autocmd FileType c ClangFormatAutoEnable
-:  " vnoremap <buffer><Leader>cf :ClangFormat<CR>
+:  vnoremap <buffer><Leader>cf :ClangFormat<CR>
 :  " nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 :endfunction
 
