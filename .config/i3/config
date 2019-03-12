@@ -3,12 +3,39 @@ set $mod Mod4
 
 font pango:Inconsolata 9
 
+floating_modifier $mod
+
+## Enviroument varibles
+##-----------------------------------------------##
+
 # Monitors:
 set $right_monitor HDMI-3
 set $left_monitor  DP-2
 
+# browser
+set $browser qutebrowser
 
-floating_modifier $mod
+# Set Xresources colors:
+set_from_resource $darkblack	color0  #000000
+set_from_resource $black	    color8  #000000
+set_from_resource $darkred	    color1  #000000
+set_from_resource $red		    color9  #000000
+set_from_resource $darkgreen	color2  #000000
+set_from_resource $green 	    color10 #000000
+set_from_resource $darkyellow	color3  #000000
+set_from_resource $yellow	    color11 #000000
+set_from_resource $darkblue	    color4  #000000
+set_from_resource $blue		    color12 #000000
+set_from_resource $darkmagenta	color5  #000000
+set_from_resource $magenta	    color13 #000000
+set_from_resource $darkcyan	    color6  #000000
+set_from_resource $cyan		    color14 #000000
+set_from_resource $darkwhite	color7  #000000
+set_from_resource $white	    color15 #000000
+
+set $transparent	        	        #000000
+
+##-----------------------------------------------##
 
 # disable titlebar
 for_window [class="^.*"] border pixel 2
@@ -17,6 +44,9 @@ for_window [class="^.*"] border pixel 2
 gaps inner 5
 gaps outer 5
 
+##  start programs
+# browser
+bindsym $mod+b exec notify-send "Browser started!" "$browser"  -t 1000 &&  $browser
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -62,36 +92,35 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # i3 lock
-bindsym $mod+Control+l exec i3-msg workspace 10 && i3lock -t -d -i ~/.i3/lock_screen.png
-#bindsym Control+Alt+Delete exec "i3lock -d"
+# bindsym $mod+Control+l exec i3-msg workspace 10 && i3lock -t -d -i ~/.i3/lock_screen.png
+bindsym $mod+Control+l exec `i3lock -t --color "$darkblack"`
+exec --no-startup-id xautolock -time 1 -locker 'i3lock -c -t $darkblack' -notify 5 -notifier 'notify-send' &
+
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # Screenshot
-bindsym --release Print exec "scrot /tmp/Screenshot%Y-%m-%d%H:%M:%S.png"
+bindsym --release Print exec `scrot -m ~/tmp/screenshot-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
+bindsym --release Shift+Print exec `notify-send "Select window for screenshot" -t 2000 && \
+                                    scrot -s ~/tmp/screenshot-window-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-#bindsym $mod+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
-
-
+# bindsym $mod+d focus child
 
 # Assign apps to workspaces
-assign [class="qutebrowser" window_type="normal"] → 1
-# assign [class="chromium" window_type="normal"] → 1
-# assign [class="clion" window_type="normal"] → 2
-# assign [class="i3-sensible-terminal" window_type="normal"] → 3
-assign [class="telegram-desktop" window_type="normal"] → 4
+assign [class=$browser window_type="normal"] → 1
+assign [class="i3-sensible-terminal" window_type="normal"] → 3
 
 
 # switch to workspace
@@ -120,18 +149,18 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 
 # Multiple monitors
-workspace 1 output $left_monitor
-workspace 2 output $right_monitor
-workspace 3 output $left_monitor
-workspace 4 output $right_monitor
-workspace 5 output $left_monitor
-workspace 6 output $right_monitor
-workspace 7 output $left_monitor
-workspace 8 output $right_monitor
-workspace 9 output $left_monitor
+workspace 1  output $left_monitor
+workspace 2  output $right_monitor
+workspace 3  output $left_monitor
+workspace 4  output $right_monitor
+workspace 5  output $left_monitor
+workspace 6  output $right_monitor
+workspace 7  output $left_monitor
+workspace 8  output $right_monitor
+workspace 9  output $left_monitor
 workspace 10 output $right_monitor
 
-exec --no-startup-id xrandr --output --primary $left_monitor --auto --left-of $right_monitor
+exec --no-startup-id xrandr --output $right_monitor  --right-of $left_monitor --primary
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -169,33 +198,6 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id "killall -q compton; compton"
 # exec_always --no-startup-id "killall -q nm-applet; nm-applet"
 
-# # window colors
-# # #                       border              background         text               indicator
-# client.focused          $bg-color           $bg-color          $text-color            #00ff00
-# client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color   #00ff00
-# client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color   #00ff00
-# client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color            #00ff00
-
-
-# Set Xresources colors:
-set_from_resource $darkblack	color0  #000000
-set_from_resource $black	color8  #000000
-set_from_resource $darkred	color1  #000000
-set_from_resource $red		color9  #000000
-set_from_resource $darkgreen	color2  #000000
-set_from_resource $green	color10 #000000
-set_from_resource $darkyellow	color3  #000000
-set_from_resource $yellow	color11 #000000
-set_from_resource $darkblue	color4  #000000
-set_from_resource $blue		color12 #000000
-set_from_resource $darkmagenta	color5  #000000
-set_from_resource $magenta	color13 #000000
-set_from_resource $darkcyan	color6  #000000
-set_from_resource $cyan		color14 #000000
-set_from_resource $darkwhite	color7  #000000
-set_from_resource $white	color15 #000000
-set $transparent		#00000000
-
 #                   	BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
 client.focused			$red			$red		$magenta	$darkmagenta	$darkblue
 client.unfocused		$transparent	$blue		$white		$darkblue		$darkblack
@@ -204,23 +206,8 @@ client.urgent			$darkred		$darkred	$black		$darkred		$darkred
 client.background 		$black
 
 
-
-
 exec_always --no-startup-id $HOME/.config/polybar/launch
 
+exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:win_space_toggle"
 
-
-
-exec_always "setxkbmap -model pc104 -layout us,ua -variant ,, -option grp:win_space_toggle"
-
-
-# exec_always "feh --bg-center --randomize  ~/Pictures/Wallpapers/"
 exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
-
-#startup apps
-# exec --no-startup-id i3-msg 'workspace 1; exec chromium'
-# exec --no-startup-id i3-msg 'workspace 1; exec firefox'
-#exec --no-startup-id i3-msg 'workspace 2; exec clion'
-exec --no-startup-id i3-msg 'workspace 3; exec i3-sensible-terminal'
-# exec --no-startup-id i3-msg 'workspace 4; exec skypeforlinux'
-

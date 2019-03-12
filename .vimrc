@@ -24,10 +24,20 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jreybert/vimagit'
 
 "  C++ additional syntax highlighting
-Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'sheerun/vim-polyglot'
 
 " Clang format code
 Plug 'rhysd/vim-clang-format'
+
+" Find usages for C/C++
+Plug 'gnattishness/cscope_maps'
+
+" Aosp files
+Plug 'rubberduck203/aosp-vim'
+
+" I3 syntax
+Plug 'mboughaba/i3config.vim'
 
 "  File Browsing
 Plug 'scrooloose/nerdtree'
@@ -46,6 +56,8 @@ Plug 'jiangmiao/auto-pairs'
 
 " Color scheme
 Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
+Plug 'rafi/awesome-vim-colorschemes'
 
 " Buffer visible tabs
 Plug 'ap/vim-buftabline'
@@ -64,8 +76,12 @@ map <leader>l :set list!<CR> " Toggle tabs and EOL
 set t_Co=256
 set background=dark
 
+let g:gruvbox_contrast_light="hard"
 colorscheme gruvbox
-let g:gruvbox_contrast_dark="soft"
+" colorscheme Tomorrow-Night
+" colorscheme hybrid_material
+" colorscheme jellybeans
+" colorscheme apprentice
 
 " Show line numbers
 set number
@@ -126,7 +142,7 @@ set showcmd
 
 " Comment line (plugin)
 inoremap <C-_> gc
-vnoremap <C-_> v_gc
+vmap <C-_> v_gc
 nmap <C-_> gc<Right>
 imap <C-_> <C-o><C-_>
 
@@ -135,7 +151,7 @@ map <C-e> :NERDTreeToggle<CR>
 
 " Autocpletion (some default stuff)
 " for words
-" " Remap code completion to Ctrl+Space {{{2
+" " Remap code completion to Ctrl+Space
 inoremap <Nul> <C-x><C-o>
 inoremap <Nul> <C-n>
 
@@ -175,7 +191,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-setlocal commentstring=//\ %s
 
  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 " Automatically deletes all tralling whitespace on save.
@@ -184,76 +199,59 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd Filetype gitcommit setlocal spell textwidth=80
 
 autocmd Filetype xdefaults setlocal commentstring=!\ %s
-autocmd Filetype vim setlocal commentstring=\"\ %s
+autocmd Filetype vim set commentstring=\"\ %s
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
 autocmd FileType python :call Python_config()
 autocmd FileType make :call Make_config()
 
 " For Android.mk's
-:function Make_config()
-:  " configure tabwidth and insert spaces instead of tabs
-:  set tabstop=4
-:  set softtabstop=4
-:  set shiftwidth=4
-:  set expandtab
-:  set textwidth=100
-:endfunction
+function Make_config()
+    " configure tabwidth and insert spaces instead of tabs
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set expandtab
+    set textwidth=100
+endfunction
 
 " C/C++ configs
-:function Cpp_config()
-:
-:  "80 characters line
-:  set colorcolumn=100
-:  " execute "set colorcolumn=" . join(range(81,335), ',')
-:  execute "set colorcolumn=" . join(range(100,335), ',')
-:  highlight ColorColumn ctermbg=Black ctermfg=DarkRed
-:  let g:cpp_member_variable_highlight = 0
-:
-:  " Highlight trailing spaces
-:  highlight ExtraWhitespace ctermbg=red guibg=red
-:  match ExtraWhitespace /\s\+$/
-:  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-:  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-:  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-:  autocmd BufWinLeave * call clearmatches()
-:  " disable vi compatibility (emulation of old bugs)
-:  set nocompatible
-:
-:  " use indentation of previous line
-:  set autoindent
-:
-:  " use intelligent indentation for C
-:  set smartindent
-:
-:  " configure tabwidth and insert spaces instead of tabs
-:  set tabstop=4
-:  set softtabstop=4
-:  set shiftwidth=4
-:  set expandtab
-:  set textwidth=100
-:  set number
-:  " highlight matching braces
-:  set showmatch
-:  " comments
-:  setlocal commentstring=//\ %s
-:  " Clang formaet setting :TODO configure
-:  " nmap <Leader>C :ClangFormatAutoToggle<CR>
-:  " autocmd FileType c ClangFormatAutoEnable
-:  vnoremap <buffer><Leader>cf :ClangFormat<CR>
-:  " nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-:endfunction
+function Cpp_config()
+    set colorcolumn=100
+     " execute "set colorcolumn=" . join(range(81,335), ',')
+    execute "set colorcolumn=" . join(range(100,335), ',')
+    highlight ColorColumn ctermbg=Black ctermfg=DarkRed
+    let g:cpp_member_variable_highlight = 0
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+    set nocompatible
+    set autoindent
+    set smartindent
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set expandtab
+    set number
+    set showmatch
+    setlocal commentstring=//\ %s
+    setlocal spell
+    set complete+=kspell
+    " Clang formaet setting :TODO configure
+    vnoremap <buffer><Leader>cf :ClangFormat<CR>
+endfunction
 
 "  Python config
-:function Python_config()
-:  set tabstop=4
-:  set softtabstop=4
-:  set shiftwidth=4
-:  set textwidth=79
-:  set expandtab
-:  set autoindent
-:  set fileformat=unix
-:  "  match BadWhitespace /\s\+$/
-:  "  let g:ycm_autoclose_preview_window_after_completion=1
-:  "  map <leader>space  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-:endfunction
+function Python_config()
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set textwidth=79
+    set expandtab
+    set autoindent
+    set fileformat=unix
+    "  match BadWhitespace /\s\+$/
+endfunction
 

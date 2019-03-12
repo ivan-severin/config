@@ -34,7 +34,6 @@ URxvt.transparent:   false
 
 ! URLs
 URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,matcher,font-size
-URxvt.url-select.launcher:  chromium
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
