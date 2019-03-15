@@ -67,33 +67,25 @@ bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
 #------------------------------
-# Prompt
-#------------------------------
-autoload -U promptinit; promptinit
-prompt pure
-
-#------------------------------
 # Some options
 #------------------------------
 setopt APPEND_HISTORY # adds history
 setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
-setopt HIST_REDUCE_BLANKS
+# setopt HIST_REDUCE_BLANKS
 
 #------------------------------
 # Antigen stuff
 #------------------------------
 #
-export ANTIGEN_DEBUG_LOG=/tmp/adlog
-export ANTIGEN_LOG=/tmp/alog
-#
+antigen use oh-my-zsh
+
 antigen bundle git
 antigen bundle repo
 antigen bundle zsh-users/zsh-completions
 antigen bundle twang817/zsh-clipboard
-# antigen use oh-my-zsh
-# antigen theme https://github.com/wesbos/Cobalt2-iterm/ cobalt2
-# antigen theme --loc ~/.oh-my-zsh/themes/cobalt2
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen theme https://github.com/wesbos/Cobalt2-iterm cobalt2
 antigen bundle chrissicool/zsh-bash
 antigen apply
 
