@@ -1,0 +1,19 @@
+! Applys colors from define file
+*.foreground: color_fg
+*.background: color_bg
+*.color0:  color_0
+*.color8:  color_8
+*.color1:  color_1
+*.color9:  color_9
+*.color2:  color_2
+*.color10: color_10
+*.color3:  color_3
+*.color11: color_11
+*.color4:  color_4
+*.color12: color_12
+*.color5:  color_5
+*.color13: color_13
+*.color6:  color_6
+*.color14: color_14
+*.color7:  color_7
+*.color15: color_15
