@@ -54,6 +54,11 @@ Plug 'tpope/vim-commentary'
 " complete brackets, parentheses
 Plug 'jiangmiao/auto-pairs'
 
+" Aligning text with
+Plug 'godlygeek/tabular'
+
+" Plug 'triglav/vim-visual-increment'
+Plug 'vim-scripts/VisIncr'
 " Color scheme
 Plug 'morhetz/gruvbox'
 Plug 'w0ng/vim-hybrid'
@@ -162,10 +167,13 @@ nnoremap <silent> <C-Up> <c-w>k
 nnoremap <silent> <C-Down> <c-w>j
 
 " move among buffers with CTRL
-map <C-l> :bnext<CR>
+map <C-j> :bnext<CR>
 map <C-k> :bprev<CR>
-map <C-J> :bd<CR>
+map <C-d> :bd<CR>
+" move among tabs with CTRL
 nnoremap <C-t> :tabnew<cr>
+nnoremap <C-h> :tabNext<cr>
+nnoremap <C-l> :tabprevious<cr>
 
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
@@ -192,9 +200,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 
- let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-" Automatically deletes all tralling whitespace on save.
-autocmd BufWritePre * %s/\s\+$//e
+ " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
 autocmd Filetype gitcommit setlocal spell textwidth=80
 
@@ -203,6 +209,7 @@ autocmd Filetype vim set commentstring=\"\ %s
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
 autocmd FileType python :call Python_config()
 autocmd FileType make :call Make_config()
+autocmd FileType java :call Java_config()
 
 " For Android.mk's
 function Make_config()
@@ -227,6 +234,8 @@ function Cpp_config()
     autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
     autocmd BufWinLeave * call clearmatches()
+    " Automatically deletes all tralling whitespace on save.
+    autocmd BufWritePre * %s/\s\+$//e
     set nocompatible
     set autoindent
     set smartindent
@@ -251,7 +260,36 @@ function Python_config()
     set textwidth=79
     set expandtab
     set autoindent
-    set fileformat=unix
     "  match BadWhitespace /\s\+$/
 endfunction
 
+"  Python config
+function Java_config()
+    set colorcolumn=100
+     " execute "set colorcolumn=" . join(range(81,335), ',')
+    execute "set colorcolumn=" . join(range(100,335), ',')
+    highlight ColorColumn ctermbg=Black ctermfg=DarkRed
+    let g:cpp_member_variable_highlight = 0
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+    set nocompatible
+    set autoindent
+    set smartindent
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    " set expandtab
+    " set number
+    " set showmatch
+    setlocal commentstring=//\ %s
+    setlocal spell
+    " set complete+=kspell
+    set foldmethod=indent
+    set foldnestmax=10
+    set nofoldenable
+    set foldlevel=2
+endfunction
