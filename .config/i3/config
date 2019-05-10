@@ -1,16 +1,25 @@
-
+#                                                                         #
+#    d8b  .d8888b.                                  .d888 d8b             #      
+#    Y8P d88P  Y88b                                d88P"  Y8P             #      
+#             .d88P                                888                    #      
+#    888     8888"        .d8888b .d88b.  88888b.  888888 888  .d88b.     #      
+#    888      "Y8b.      d88P"   d88""88b 888 "88b 888    888 d88P"88b    #      
+#    888 888    888      888     888  888 888  888 888    888 888  888    #      
+#    888 Y88b  d88P      Y88b.   Y88..88P 888  888 888    888 Y88b 888    #      
+#    888  "Y8888P"        "Y8888P "Y88P"  888  888 888    888  "Y88888    #      
+#                                                                  888    #      
+#                                                             Y8b d88P    #      
+#                                                              "Y88P"     #      
+## Enviroument varibles
+##-----------------------------------------------------------------------##
 set $mod Mod4
 
-font pango:Inconsolata 9
-
-floating_modifier $mod
-
-## Enviroument varibles
-##-----------------------------------------------##
-
 # Monitors:
-set $right_monitor HDMI-3
-set $left_monitor  DP-2
+set $right_monitor DP1
+set $left_monitor  eDP1
+
+# terminal
+set $terminal i3-sensible-terminal
 
 # browser
 set $browser qutebrowser
@@ -34,8 +43,13 @@ set_from_resource $darkwhite	color7  #000000
 set_from_resource $white	    color15 #000000
 
 set $transparent	        	        #000000
+##-----------------------------------------------------------------------##
+## Basic settings
+##-----------------------------------------------------------------------##
 
-##-----------------------------------------------##
+font pango:Inconsolata 9
+
+floating_modifier $mod
 
 # disable titlebar
 for_window [class="^.*"] border pixel 2
@@ -44,12 +58,24 @@ for_window [class="^.*"] border pixel 2
 gaps inner 5
 gaps outer 5
 
-##  start programs
+##-----------------------------------------------------------------------##
+## Binds for start programs
+##-----------------------------------------------------------------------##
 # browser
 bindsym $mod+b exec notify-send "Browser started!" "$browser"  -t 1000 &&  $browser
 
+# lock screen
+bindsym $mod+Control+l exec i3-msg workspace 10 && i3lock -t -d -i ~/.i3/lock_screen.png
+# bindsym $mod+Control+l exec `i3lock -t --color "$darkblack"`
+exec --no-startup-id xautolock -time 1 -locker 'i3lock -c -t $darkblack' -notify 5 -notifier 'notify-send' &
+
+# Screenshot
+bindsym --release Print exec `scrot -m ~/tmp/screenshot-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
+bindsym --release Shift+Print exec `notify-send "Select window for screenshot" -t 2000 && \
+                                    scrot -s ~/tmp/screenshot-window-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
+
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec $terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -58,6 +84,54 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec "rofi -show run"
 bindsym $mod+Shift+d exec "rofi -modi drun -show drun"
 
+##-----------------------------------------------------------------------##
+## Startup some applets
+##-----------------------------------------------------------------------##
+
+# Nice window animation
+exec_always --no-startup-id "killall -q compton; compton"
+
+# Bluetooth applet
+exec_always --no-startup-id "killall -q blueberry-tray; blueberry-tray"
+
+# Wallpapers, bar and keyboard layout
+exec_always --no-startup-id $HOME/.config/polybar/launch
+exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:win_space_toggle"
+exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
+##-----------------------------------------------------------------------##
+## Window colors
+##-----------------------------------------------------------------------##
+#                  	    BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
+client.focused			$black			$black		$white      $darkmagenta	$darkblue
+client.unfocused		$transparent	$darkblack 	$darkwhite	$darkblue		$darkblack
+client.focused_inactive	$transparent	$darkblack 	$darkwhite	$darkblue		$darkblack
+client.urgent			$darkred		$darkred	$red		$darkred		$darkred
+client.background 		$black
+##-----------------------------------------------------------------------##
+## Monitor
+##-----------------------------------------------------------------------##
+# Position
+# exec --no-startup-id xrandr --output $right_monitor  --right-of $left_monitor --primary
+exec --no-startup-id xrandr --output $left_monitor --off
+
+# Assign apps to workspaces
+# assign [class=$browser window_type="normal"] → 1
+# assign [class="$terminal" window_type="normal"] → 3
+
+# Multiple monitors
+workspace 1  output $left_monitor
+workspace 2  output $right_monitor
+workspace 3  output $left_monitor
+workspace 4  output $right_monitor
+workspace 5  output $left_monitor
+workspace 6  output $right_monitor
+workspace 7  output $left_monitor
+workspace 8  output $right_monitor
+workspace 9  output $left_monitor
+workspace 10 output $right_monitor
+##-----------------------------------------------------------------------##
+## Control windows and etc.
+##-----------------------------------------------------------------------##
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -91,20 +165,10 @@ bindsym $mod+v split v
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-# i3 lock
-# bindsym $mod+Control+l exec i3-msg workspace 10 && i3lock -t -d -i ~/.i3/lock_screen.png
-bindsym $mod+Control+l exec `i3lock -t --color "$darkblack"`
-exec --no-startup-id xautolock -time 1 -locker 'i3lock -c -t $darkblack' -notify 5 -notifier 'notify-send' &
-
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-
-# Screenshot
-bindsym --release Print exec `scrot -m ~/tmp/screenshot-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
-bindsym --release Shift+Print exec `notify-send "Select window for screenshot" -t 2000 && \
-                                    scrot -s ~/tmp/screenshot-window-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
@@ -113,15 +177,10 @@ bindsym $mod+Shift+f floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-# bindsym $mod+a focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
-# bindsym $mod+d focus child
-
-# Assign apps to workspaces
-assign [class=$browser window_type="normal"] → 1
-assign [class="i3-sensible-terminal" window_type="normal"] → 3
-
+bindsym $mod+z focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -147,46 +206,29 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-
-# Multiple monitors
-workspace 1  output $left_monitor
-workspace 2  output $right_monitor
-workspace 3  output $left_monitor
-workspace 4  output $right_monitor
-workspace 5  output $left_monitor
-workspace 6  output $right_monitor
-workspace 7  output $left_monitor
-workspace 8  output $right_monitor
-workspace 9  output $left_monitor
-workspace 10 output $right_monitor
-
-exec --no-startup-id xrandr --output $right_monitor  --right-of $left_monitor --primary
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym j resize shrink width       10 px or 10 ppt
+        bindsym k resize grow height        10 px or 10 ppt
+        bindsym l resize shrink height      10 px or 10 ppt
         bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Down resize grow height  10 px or 10 ppt
+        bindsym Up resize shrink height  10 px or 10 ppt
+        bindsym Right resize grow width  10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -194,20 +236,4 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-exec_always --no-startup-id "killall -q compton; compton"
-# exec_always --no-startup-id "killall -q nm-applet; nm-applet"
-
-#                   	BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
-client.focused			$red			$red		$magenta	$darkmagenta	$darkblue
-client.unfocused		$transparent	$blue		$white		$darkblue		$darkblack
-client.focused_inactive	$transparent	$blue		$white		$darkblue		$darkblack
-client.urgent			$darkred		$darkred	$black		$darkred		$darkred
-client.background 		$black
-
-
-exec_always --no-startup-id $HOME/.config/polybar/launch
-
-exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:win_space_toggle"
-
-exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
+##-----------------------------------------------------------------------##
