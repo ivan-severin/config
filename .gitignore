@@ -33,6 +33,10 @@
 !.colors
 !.colors/*
 
+# scripts 
+!.scripts
+!.scripts/*
+
 # .configs
 !.config
 !.config/i3

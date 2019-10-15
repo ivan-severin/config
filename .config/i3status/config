@@ -1,42 +1,30 @@
-# i3status configuration file.
-# see "man i3status" for documentation.
-
-# It is important that this file is edited as UTF-8.
-# The following line should contain a sharp s:
-# ß
-# If the above line is not correctly displayed, fix your editor first!
-
 general {
-  colors = true
-  interval = 2
+  # colors =          true
+  interval =         2
   color_good =		"#36E592" #some neon green
   color_degraded =	"#CE9726"
   color_bad = 		"#CE4B4F"
-  output_format = i3bar
+  output_format =   i3bar
 }
 
-order += "wireless wlp3s0"
-order += "ethernet ens5"
+order += "wireless wlp2s0"
+order += "ethernet enp0s31f6"
 order += "battery 0"
 order += "volume master"
 order += "cpu_temperature 0"
 order += "cpu_usage 0"
 order += "tztime local"
 
-# order += "disk /"
-# order += "load"
-#
-wireless wlp3s0 {
-    format_up = "  %quality    %bitrate  %ip"
+wireless wlp2s0 {
+    format_up = "  %quality bitrate: %bitrate ip: %ip"
     format_down = ""
 }
 
-ethernet ens5 {
+ethernet enp0s31f6 {
     #if you use %speed, i3status requires root privileges
-    format_up = "  %ip"
+    format_up = " %ip"
     format_down = ""
 }
-
 
 battery 0 {
     format = "%status %remaining"
@@ -46,25 +34,19 @@ battery 0 {
     low_threshold = 11
     threshold_type = percentage
     hide_seconds = true
-    status_chr = " "
-    status_bat = " "
-    status_unk = " "
-    status_full = " "
+    status_chr = ""
+    status_bat = ""
+    status_unk = ""
+    status_full = ""
 }
 
 cpu_temperature 0 {
-  format = " %degrees°C"
-}
-disk "/" {
-	format = " %avail"
-	prefix_type	= custom
-	low_threshold = 20
-	threshold_type = percentage_avail
+  format = "%degrees°C"
 }
 
 volume master {
-  format = " %volume"
-  format_muted = "🔇 %volume"
+  format = "%volume"
+  format_muted = ""
   device = "default"
   mixer = "Master"
   mixer_idx = 0
@@ -73,11 +55,11 @@ tztime local {
     format = " %H:%M"
 }
 
-load {
-    format = " %1min"
+tztime local {
+    format = "%H:%M"
 }
 
 cpu_usage {
-    format = " %usage"
+    format = "%usage"
 }
 

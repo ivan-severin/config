@@ -12,36 +12,45 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:color0}
-background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #555
-primary = ${xrdb:color2}
-secondary = #e60053
-alert = #bd2c40
+
+darkblack       = ${xrdb:color0:#363636}
+black           = ${xrdb:color8:#424242}
+darkred         = ${xrdb:color1:#C37561}
+red             = ${xrdb:color9:#D19485}
+darkgreen       = ${xrdb:color2:#A0A57E}
+green           = ${xrdb:color10:#B6B99D}
+darkyellow      = ${xrdb:color3:#D1A375}
+yellow          = ${xrdb:color11:#DEBC9C}
+darkblue        = ${xrdb:color4:#7985A3}
+blue            = ${xrdb:color12:#98A1B9}
+darkmagenta     = ${xrdb:color5:#AB716D}
+magenta         = ${xrdb:color13:#BE918E}
+darkcyan        = ${xrdb:color6:#98B9B1}
+cyan            = ${xrdb:color14:#CBE6CB}
+darkwhite       = ${xrdb:color7:#D0D0D0}
+white           = ${xrdb:color15:#E6E6E6}
+
+background      = ${colors.darkblack}
+background-alt  = ${colors.darkblack}
+foreground      = ${colors.darkwhite}
+;foreground-alt = ${colors.black}
+foreground-alt  = #555
+primary         = ${colors.darkgreen}
+secondary       = ${colors.darkmagenta}
+alert           = ${colors.darkred}
 
 [bar/top]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 30
-;offset-x = 1%
-;offset-y = 1%
-radius = 5.0
+monitor      = ${env:MONITOR:DP1}
+width        = 100%
+height       = 25
 fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
-line-color = #f00
-
-border-color = #00000000
-
-paddong = 0
-
-padding-left = 0
-padding-right = 2
+line-size  = 3
+line-color = ${colors.green}
+paddong    = 0
 
 module-margin-left = 1
 module-margin-right = 2
@@ -50,26 +59,26 @@ font-0 = fixed:pixelsize=11;1
 font-1 = FontAwesome5Free:style=Solid:pixelsize=12;1
 font-2 = MaterialIcons-Regular:pixelsize=14;1
 
-modules-left = i3
+modules-left   = i3 
 modules-center = date
-modules-right = xbacklight pulseaudio xkeyboard cpu memory wlan eth battery temperature
+modules-right  = xbacklight pulseaudio xkeyboard cpu memory wlan eth battery temperature 
 
 tray-position = right
-tray-padding = 2
+tray-padding  = 2
 
 ;override-redirect = true
 
-;scroll-up = bspwm-desknext
+;scroll-up   = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-;scroll-up = i3wm-wsnext
+;scroll-up   = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
 
-cursor-click = pointer
+cursor-click  = pointer
 cursor-scroll = ns-resize
 
 [module/xwindow]
-type = internal/xwindow
+type  = internal/xwindow
 label = %title:0:30:...%
 
 [module/xkeyboard]
@@ -81,16 +90,15 @@ format-prefix-foreground = ${colors.foreground-alt}
 
 label-layout = %layout%
 
-label-indicator-padding = 2
-label-indicator-margin = 1
+label-indicator-padding    = 2
+label-indicator-margin     = 1
 label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+label-indicator-underline  = ${colors.secondary}
 
 [module/filesystem]
-type = internal/fs
+type     = internal/fs
 interval = 25
-
-mount-0 = /
+mount-0  = /
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
@@ -119,8 +127,8 @@ label-empty-padding = 2
 ; label-separator = |
 
 [module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
+type       = internal/i3
+format     = <label-state> <label-mode>
 index-sort = true%
 
 wrapping-scroll = false
@@ -128,15 +136,15 @@ wrapping-scroll = false
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
 
-label-mode-padding = 2
+label-mode-padding    = 2
 label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %index%
+label-focused            = %index%
 label-focused-background = ${module/bspwm.label-focused-background}
-label-focused-underline = ${module/bspwm.label-focused-underline}
-label-focused-padding = ${module/bspwm.label-focused-padding}
+label-focused-underline  = ${module/bspwm.label-focused-underline}
+label-focused-padding    = ${module/bspwm.label-focused-padding}
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
@@ -212,6 +220,7 @@ interval = 3.0
 
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
+
 label-connected = %local_ip%
 format-disconnected =
 
@@ -223,7 +232,7 @@ date =
 date-alt = " %a %d %b %Y"
 
 time = %H:%M
-time-alt =  %H:%M
+time-alt =  %H:%M:%S
 
 label = %time% %date%
 
@@ -249,9 +258,9 @@ bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 2
-bar-volume-fill = =
+bar-volume-fill = = 
 bar-volume-fill-font = 2
-bar-volume-empty = ─
+bar-volume-empty = =
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
