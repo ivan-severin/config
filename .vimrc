@@ -1,75 +1,38 @@
-" Encoding
 set encoding=utf-8
-" Don't try to be vi compatible
 set nocompatible
-
-" Turn on syntax highlighting
-syntax on
-
-" For plugins to load correctly
 filetype plugin indent on
-
-"A leader key
+syntax on
 let mapleader = ";"
-
-" Security
 set modelines=0
 
 call plug#begin('~/.vim/plugged')
-
-"  plugin on GitHub repo
-Plug 'airblade/vim-gitgutter'
-
-" Git-diff tool
-Plug 'jreybert/vimagit'
-
-"  C++ additional syntax highlighting
-" Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'sheerun/vim-polyglot'
-
-" Clang format code
-Plug 'rhysd/vim-clang-format'
-
-" Find usages for C/C++
-Plug 'gnattishness/cscope_maps'
-
-" Aosp files
-Plug 'rubberduck203/aosp-vim'
-
-" I3 syntax
-Plug 'mboughaba/i3config.vim'
-
-"  File Browsing
-Plug 'scrooloose/nerdtree'
-
-"  Python Auto-Indentation
-Plug 'vim-scripts/indentpython.vim'
-
-"  Sublime Text style multiple selections
-Plug 'terryma/vim-multiple-cursors'
-
-"  Comments
-Plug 'tpope/vim-commentary'
-
-" complete brackets, parentheses
-Plug 'jiangmiao/auto-pairs'
-
-" Aligning text with
-Plug 'godlygeek/tabular'
-
-" Plug 'triglav/vim-visual-increment'
-Plug 'vim-scripts/VisIncr'
-" Color scheme
-Plug 'morhetz/gruvbox'
-Plug 'w0ng/vim-hybrid'
-Plug 'rafi/awesome-vim-colorschemes'
-
-" Buffer visible tabs
-Plug 'ap/vim-buftabline'
-
+" Git:
+    Plug 'airblade/vim-gitgutter'
+    Plug 'jreybert/vimagit'
+" Code:
+    Plug 'sheerun/vim-polyglot'
+    Plug 'rhysd/vim-clang-format'
+    Plug 'gnattishness/cscope_maps'
+    Plug 'vim-scripts/indentpython.vim'
+    Plug 'rubberduck203/aosp-vim'
+    Plug 'mboughaba/i3config.vim'
+    Plug 'tpope/vim-commentary'
+    Plug 'jiangmiao/auto-pairs'
+" Files:
+    Plug 'scrooloose/nerdtree'
+    Plug 'srstevenson/vim-picker'
+" Text:
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'godlygeek/tabular'
+    Plug 'vim-scripts/visincr'
+" Design:
+    Plug 'morhetz/gruvbox'
+    Plug 'kristijanhusak/vim-hybrid-material'
+    Plug 'ap/vim-buftabline'
+" test:
+    " Plug 'ludovicchabant/vim-gutentags'
+    " Plug 'skywind3000/gutentags_plus'
 call plug#end()
-
-filetype plugin indent on    " required
 
 " TURN OFF statusline
 set laststatus=0
@@ -80,19 +43,16 @@ map <leader>l :set list!<CR> " Toggle tabs and EOL
 " Color scheme (terminal)
 set t_Co=256
 set background=dark
+let g:hybrid_custom_term_colors = 1
+let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
 
-let g:gruvbox_contrast_light="hard"
+" let g:gruvbox_contrast_light="hard"
 colorscheme gruvbox
-" colorscheme Tomorrow-Night
 " colorscheme hybrid_material
-" colorscheme jellybeans
-" colorscheme apprentice
-
-" Show line numbers
-set number
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
+set belloff=all
 
 " Visualize tabs and newlines
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
@@ -131,12 +91,12 @@ nnoremap j gj
 nnoremap k gk
 
 " Git shortcuts
-nmap Gp <Plug>GitGutterPreviewHunk
-nmap Gs <Plug>GitGutterStageHunk
-nmap Gu <Plug>GitGutterUndoHunk
+nmap Gp <Plug>(GitGutterPreviewHunk)
+nmap Gs <Plug>(GitGutterStageHunk)
+nmap Gu <Plug>(GitGutterUndoHunk)
 
-nmap G] <Plug>GitGutterNextHunk
-nmap G[ <Plug>GitGutterPrevHunk
+nmap G] <Plug>(GitGutterNextHunk)
+nmap G[ <Plug>(GitGutterPrevHunk)
 
 " let magit interract with gutter
 let g:magit_refresh_gitgutter=1
@@ -178,7 +138,7 @@ nnoremap <C-l> :tabprevious<cr>
 " vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
 
-" Default mapping
+" Mapping of multicursor
 let g:multi_cursor_start_word_key      = '<C-n>'
 let g:multi_cursor_select_all_word_key = '<A-n>'
 let g:multi_cursor_start_key           = 'g<C-n>'
@@ -187,6 +147,44 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+
+" Fuzzy finder
+nmap <unique> <leader>fe <Plug>(PickerEdit)
+nmap <unique> <leader>fs <Plug>(PickerSplit)
+nmap <unique> <leader>ft <Plug>(PickerTabedit)
+nmap <unique> <leader>fv <Plug>(PickerVsplit)
+nmap <unique> <leader>fb <Plug>(PickerBuffer)
+nmap <unique> <leader>f] <Plug>(PickerTag)
+nmap <unique> <leader>fw <Plug>(PickerStag)
+nmap <unique> <leader>fo <Plug>(PickerBufferTag)
+nmap <unique> <leader>fh <Plug>(PickerHelp)
+let g:picker_custom_find_flags = '--color always --files'
+let g:picker_height = 20
+
+" let g:gutentags_plus_nomap = 1
+" noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
+" noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
+" noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
+" noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
+" noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
+" noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+" noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+" noremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
+" noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
+
+" " config project root markers.
+" let g:gutentags_project_root = ['.git']
+
+" enable gtags module
+" let g:gutentags_modules = ['gtags']
+" let g:gutentags_gtags_executable = 'ctags'
+" generate datebases in my cache directory, prevent gtags files polluting my project
+" let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" change focus to quickfix window after search (optional).
+" let g:gutentags_plus_switch = 1
+
+" let g:gutentags_define_advanced_commands = 1
 
 " use indentation of previous line
 set autoindent
@@ -200,10 +198,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 
- " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-
 autocmd Filetype gitcommit setlocal spell textwidth=80
-
 autocmd Filetype xdefaults setlocal commentstring=!\ %s
 autocmd Filetype vim set commentstring=\"\ %s
 autocmd FileType h,hpp,c,cpp :call Cpp_config()
@@ -261,35 +256,4 @@ function Python_config()
     set expandtab
     set autoindent
     "  match BadWhitespace /\s\+$/
-endfunction
-
-"  Python config
-function Java_config()
-    set colorcolumn=100
-     " execute "set colorcolumn=" . join(range(81,335), ',')
-    execute "set colorcolumn=" . join(range(100,335), ',')
-    highlight ColorColumn ctermbg=Black ctermfg=DarkRed
-    let g:cpp_member_variable_highlight = 0
-    highlight ExtraWhitespace ctermbg=red guibg=red
-    match ExtraWhitespace /\s\+$/
-    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-    autocmd BufWinLeave * call clearmatches()
-    set nocompatible
-    set autoindent
-    set smartindent
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    " set expandtab
-    " set number
-    " set showmatch
-    setlocal commentstring=//\ %s
-    setlocal spell
-    " set complete+=kspell
-    set foldmethod=indent
-    set foldnestmax=10
-    set nofoldenable
-    set foldlevel=2
 endfunction
