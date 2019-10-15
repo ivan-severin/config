@@ -104,8 +104,13 @@ exec_always --no-startup-id "killall -q blueberry-tray; blueberry-tray"
 
 # Clipboard manager
 exec_always --no-startup-id "killall -q clipmenud; clipmenud"
+
+# Wallpapers and keyboard layout
 exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:win_space_toggle"
 exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
+
+# USB mounting
+exec_always --no-startup-id "killall -q udiskie; udiskie --no-automount  --tray --use-udisks2"
 ##-----------------------------------------------------------------------##
 ## Window colors
 ##-----------------------------------------------------------------------##
