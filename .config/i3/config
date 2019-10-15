@@ -102,8 +102,6 @@ exec_always --no-startup-id "killall -q compton; compton"
 # Bluetooth applet
 exec_always --no-startup-id "killall -q blueberry-tray; blueberry-tray"
 
-# Wallpapers, bar and keyboard layout
-exec_always --no-startup-id $HOME/.config/polybar/launch
 # Clipboard manager
 exec_always --no-startup-id "killall -q clipmenud; clipmenud"
 exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:win_space_toggle"
@@ -117,6 +115,34 @@ client.unfocused		$transparent	$darkblack 	$darkwhite	$darkblue		$darkblack
 client.focused_inactive	$transparent	$darkblack 	$darkwhite	$darkblue		$darkblack
 client.urgent			$darkred		$darkred	$red		$darkred		$darkred
 client.background 		$black
+##-----------------------------------------------------------------------##
+## Status bar
+##-----------------------------------------------------------------------##
+
+# Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch
+
+ # i3status
+ # bar {
+ #    # font pango:fixed 10, FontAwesome5Free 10, MaterialIcons-Regular 11
+ #    font pango:fixed 10, MaterialIcons-Regular 11
+ #    colors {
+ #        background $darkblack
+ #        statusline $darkwhite
+ #        separator $cyan
+ #        focused_workspace  $blue $darkblue $darkblack
+ #        active_workspace   $blue $blue $darkwhite
+ #        inactive_workspace $darkblack $darkblack $white
+ #        urgent_workspace   $darkblack $darkblack $white
+ #    }
+ 
+ #    status_command i3status
+ #    position top
+ #    separator_symbol " "
+ #    mode dock
+ #    # modifier None
+ # }
+
 ##-----------------------------------------------------------------------##
 ## Monitor
 ##-----------------------------------------------------------------------##
