@@ -57,7 +57,13 @@ for_window [class="^.*"] border pixel 2
 # some borders
 gaps inner 5
 gaps outer 5
-
+##-----------------------------------------------------------------------##
+## Muptimedia keys
+##-----------------------------------------------------------------------##
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 ##-----------------------------------------------------------------------##
 ## Binds for start programs
 ##-----------------------------------------------------------------------##
