@@ -110,9 +110,9 @@ exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
 ## Window colors
 ##-----------------------------------------------------------------------##
 #                  	    BORDER			BACKGROUND	TEXT		INDICATOR   	CHILD_BORDER
-client.focused			$black			$black		$white      $darkmagenta	$darkblue
-client.unfocused		$transparent	$darkblack 	$darkwhite	$darkblue		$darkblack
-client.focused_inactive	$transparent	$darkblack 	$darkwhite	$darkblue		$darkblack
+client.focused			$transparent    $darkgreen	$darkblack  $darkmagenta	$darkblue
+client.unfocused		$transparent	$black   	$darkwhite	$darkblue		$darkblack
+client.focused_inactive	$transparent	$black   	$darkwhite	$darkblue		$darkblack
 client.urgent			$darkred		$darkred	$red		$darkred		$darkred
 client.background 		$black
 ##-----------------------------------------------------------------------##
