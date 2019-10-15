@@ -25,22 +25,22 @@ set $terminal i3-sensible-terminal
 set $browser qutebrowser
 
 # Set Xresources colors:
-set_from_resource $darkblack	color0  #000000
-set_from_resource $black	    color8  #000000
-set_from_resource $darkred	    color1  #000000
-set_from_resource $red		    color9  #000000
-set_from_resource $darkgreen	color2  #000000
-set_from_resource $green 	    color10 #000000
-set_from_resource $darkyellow	color3  #000000
-set_from_resource $yellow	    color11 #000000
-set_from_resource $darkblue	    color4  #000000
-set_from_resource $blue		    color12 #000000
-set_from_resource $darkmagenta	color5  #000000
-set_from_resource $magenta	    color13 #000000
-set_from_resource $darkcyan	    color6  #000000
-set_from_resource $cyan		    color14 #000000
-set_from_resource $darkwhite	color7  #000000
-set_from_resource $white	    color15 #000000
+set_from_resource $darkblack	color0  #363636
+set_from_resource $black	    color8  #424242
+set_from_resource $darkred	    color1  #C37561
+set_from_resource $red		    color9  #D19485
+set_from_resource $darkgreen	color2  #A0A57E
+set_from_resource $green 	    color10 #B6B99D
+set_from_resource $darkyellow	color3  #D1A375
+set_from_resource $yellow	    color11 #DEBC9C
+set_from_resource $darkblue	    color4  #7985A3
+set_from_resource $blue		    color12 #98A1B9
+set_from_resource $darkmagenta	color5  #AB716D
+set_from_resource $magenta	    color13 #BE918E
+set_from_resource $darkcyan	    color6  #98B9B1
+set_from_resource $cyan		    color14 #CBE6CB
+set_from_resource $darkwhite	color7  #D0D0D0
+set_from_resource $white	    color15 #E6E6E6
 
 set $transparent	        	        #000000
 ##-----------------------------------------------------------------------##
