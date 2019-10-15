@@ -56,6 +56,13 @@
 !.config/ranger
 !.config/ranger/*
 
+!.config/termite 
+!.config/termite/*
+
+# Wallpapers
+!Pictures
+!Pictures/Wallpapers
+!Pictures/Wallpapers/*
 
 # Git aliases, identification info
 .gitconfig
