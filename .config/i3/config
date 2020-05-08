@@ -76,12 +76,16 @@ bindsym $mod+Control+l exec i3-msg workspace 10 && i3lock -t -d -i ~/.i3/lock_sc
 exec --no-startup-id xautolock -time 1 -locker 'i3lock -c -t $darkblack' -notify 5 -notifier 'notify-send' &
 
 # Screenshot
-bindsym --release Print exec `scrot -m ~/tmp/screenshot-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
+bindsym --release Print exec `scrot -m ~/del/screenshot-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
 bindsym --release Shift+Print exec `notify-send "Select window for screenshot" -t 2000 && \
-                                    scrot -s ~/tmp/screenshot-window-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
+                                    scrot -s ~/del/screenshot-window-%H:%M:%S.png -e 'notify-send "Screenshot caputed: " "$f" -t 3000'`
 
 # start a terminal
 bindsym $mod+Return exec $terminal
+
+# start a floating terminal
+bindsym $mod+Shift+Return exec --no-startup-id $terminal --class=terminal_floating
+for_window [class="terminal_floating"] floating enable 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -91,7 +95,8 @@ bindsym $mod+d exec "rofi -show run"
 bindsym $mod+Shift+d exec "rofi -modi drun -show drun"
 # Clipboadrd manager start
 bindsym $mod+c exec "CM_LAUNCHER=rofi  clipmenu -width 35"
-
+# Start passmenu
+bindsym $mod+p exec "passmenu"
 ##-----------------------------------------------------------------------##
 ## Startup some applets
 ##-----------------------------------------------------------------------##
@@ -106,8 +111,12 @@ exec_always --no-startup-id "killall -q blueberry-tray; blueberry-tray"
 exec_always --no-startup-id "killall -q clipmenud; clipmenud"
 
 # Wallpapers and keyboard layout
-exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:win_space_toggle"
+exec_always "setxkbmap -model pc104 -layout us,ua,ru -variant ,, -option grp:alt_space_toggle"
 exec_always "feh --bg-scale --randomize  ~/Pictures/Wallpapers/"
+
+
+# Keyboard layout indicator
+exec_always --no-startup-id "killall -q sbxkb;  sbxkb"
 
 # USB mounting
 exec_always --no-startup-id "killall -q udiskie; udiskie --no-automount  --tray --use-udisks2"
@@ -125,51 +134,52 @@ client.background 		$black
 ##-----------------------------------------------------------------------##
 
 # Polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch
+# exec_always --no-startup-id $HOME/.config/polybar/launch
 
  # i3status
- # bar {
- #    # font pango:fixed 10, FontAwesome5Free 10, MaterialIcons-Regular 11
- #    font pango:fixed 10, MaterialIcons-Regular 11
- #    colors {
- #        background $darkblack
- #        statusline $darkwhite
- #        separator $cyan
- #        focused_workspace  $blue $darkblue $darkblack
- #        active_workspace   $blue $blue $darkwhite
- #        inactive_workspace $darkblack $darkblack $white
- #        urgent_workspace   $darkblack $darkblack $white
- #    }
+ bar {
+    font pango:fixed 10, FontAwesome5Free 10, MaterialIcons-Regular 11
+    # font pango:fixed 10, MaterialIcons-Regular 11
+    colors {
+        background $darkblack
+        statusline $darkwhite
+        separator $cyan
+        focused_workspace  $blue $darkblue $darkblack
+        active_workspace   $blue $blue $darkwhite
+        inactive_workspace $darkblack $darkblack $white
+        urgent_workspace   $darkblack $darkblack $white
+    }
  
- #    status_command i3status
- #    position top
- #    separator_symbol " "
- #    mode dock
- #    # modifier None
- # }
+    status_command i3status 
+    # status_command /home/seva/dev/outofwork/slstatus/slstatus -s 
+    position top
+    separator_symbol " "
+    mode dock
+    # modifier None
+ }
 
 ##-----------------------------------------------------------------------##
 ## Monitor
 ##-----------------------------------------------------------------------##
 # Position
 # exec --no-startup-id xrandr --output $right_monitor  --right-of $left_monitor --primary
-exec --no-startup-id xrandr --output $left_monitor --off
+# exec --no-startup-id xrandr --output $left_monitor --off
 
 # Assign apps to workspaces
 # assign [class=$browser window_type="normal"] → 1
 # assign [class="$terminal" window_type="normal"] → 3
 
 # Multiple monitors
-workspace 1  output $left_monitor
-workspace 2  output $right_monitor
-workspace 3  output $left_monitor
-workspace 4  output $right_monitor
-workspace 5  output $left_monitor
-workspace 6  output $right_monitor
-workspace 7  output $left_monitor
-workspace 8  output $right_monitor
-workspace 9  output $left_monitor
-workspace 10 output $right_monitor
+# workspace 1  output $left_monitor
+# workspace 2  output $right_monitor
+# workspace 3  output $left_monitor
+# workspace 4  output $right_monitor
+# workspace 5  output $left_monitor
+# workspace 6  output $right_monitor
+# workspace 7  output $left_monitor
+# workspace 8  output $right_monitor
+# workspace 9  output $left_monitor
+# workspace 10 output $right_monitor
 ##-----------------------------------------------------------------------##
 ## Control windows and etc.
 ##-----------------------------------------------------------------------##
@@ -212,7 +222,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -246,6 +256,21 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+set $mode_system System (l) lock, (e) exit, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock, mode "default"
+    bindsym e exec --no-startup-id i3msg exit, mode "default"
+    bindsym s exec --no-startup-id i3lock && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id i3lock && hibernate, mode "default"
+    bindsym r exec --no-startup-id i3lock && reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+x mode "$mode_system"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
