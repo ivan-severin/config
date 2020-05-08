@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 " Git:
     Plug 'airblade/vim-gitgutter'
     Plug 'jreybert/vimagit'
+    Plug 'zivyangll/git-blame.vim'
 " Code:
     Plug 'sheerun/vim-polyglot'
     Plug 'rhysd/vim-clang-format'
@@ -29,9 +30,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'kristijanhusak/vim-hybrid-material'
     Plug 'ap/vim-buftabline'
-" test:
-    " Plug 'ludovicchabant/vim-gutentags'
-    " Plug 'skywind3000/gutentags_plus'
+" Test:
 call plug#end()
 
 " TURN OFF statusline
@@ -46,9 +45,8 @@ set background=dark
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
 
-" let g:gruvbox_contrast_light="hard"
+let g:gruvbox_contrast_light="hard"
 colorscheme gruvbox
-" colorscheme hybrid_material
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
@@ -97,9 +95,10 @@ nmap Gu <Plug>(GitGutterUndoHunk)
 
 nmap G] <Plug>(GitGutterNextHunk)
 nmap G[ <Plug>(GitGutterPrevHunk)
-
-" let magit interract with gutter
 let g:magit_refresh_gitgutter=1
+
+" Git Blame 
+nnoremap <leader>s :<C-u>call gitblame#echo()<CR>
 
 " Last line
 set showmode
@@ -114,12 +113,6 @@ imap <C-_> <C-o><C-_>
 "  File browser
 map <C-e> :NERDTreeToggle<CR>
 
-" Autocpletion (some default stuff)
-" for words
-" " Remap code completion to Ctrl+Space
-inoremap <Nul> <C-x><C-o>
-inoremap <Nul> <C-n>
-
 " Moving between tabs\buffers
 nnoremap <silent> <C-Right> <c-w>l
 nnoremap <silent> <C-Left> <c-w>h
@@ -130,23 +123,9 @@ nnoremap <silent> <C-Down> <c-w>j
 map <C-j> :bnext<CR>
 map <C-k> :bprev<CR>
 map <C-d> :bd<CR>
-" move among tabs with CTRL
-nnoremap <C-t> :tabnew<cr>
-nnoremap <C-h> :tabNext<cr>
-nnoremap <C-l> :tabprevious<cr>
 
 " vim-multiple-cursors
-let g:multi_cursor_use_default_mapping=0
-
-" Mapping of multicursor
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+let g:multi_cursor_use_default_mapping=1
 
 " Fuzzy finder
 nmap <unique> <leader>fe <Plug>(PickerEdit)
@@ -158,34 +137,7 @@ nmap <unique> <leader>f] <Plug>(PickerTag)
 nmap <unique> <leader>fw <Plug>(PickerStag)
 nmap <unique> <leader>fo <Plug>(PickerBufferTag)
 nmap <unique> <leader>fh <Plug>(PickerHelp)
-let g:picker_custom_find_flags = '--color always --files'
-let g:picker_height = 20
-
-" let g:gutentags_plus_nomap = 1
-" noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
-" noremap <silent> <leader>gg :GscopeFind g <C-R><C-W><cr>
-" noremap <silent> <leader>gc :GscopeFind c <C-R><C-W><cr>
-" noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
-" noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
-" noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-" noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-" noremap <silent> <leader>gd :GscopeFind d <C-R><C-W><cr>
-" noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
-
-" " config project root markers.
-" let g:gutentags_project_root = ['.git']
-
-" enable gtags module
-" let g:gutentags_modules = ['gtags']
-" let g:gutentags_gtags_executable = 'ctags'
-" generate datebases in my cache directory, prevent gtags files polluting my project
-" let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-" change focus to quickfix window after search (optional).
-" let g:gutentags_plus_switch = 1
-
-" let g:gutentags_define_advanced_commands = 1
-
+"
 " use indentation of previous line
 set autoindent
 
@@ -255,5 +207,47 @@ function Python_config()
     set textwidth=79
     set expandtab
     set autoindent
-    "  match BadWhitespace /\s\+$/
 endfunction
+
+"  Java config
+function Java_config()
+    set colorcolumn=100
+    execute "set colorcolumn=" . join(range(100,335), ',')
+    highlight ColorColumn ctermbg=Black ctermfg=DarkRed
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+    set nocompatible
+    set autoindent
+    set smartindent
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    " set expandtab
+    set number
+    " set showmatch
+    setlocal commentstring=//\ %s
+    setlocal spell
+    " set complete+=kspell
+    set foldmethod=indent
+    set foldnestmax=10
+    set nofoldenable
+    set foldlevel=2
+endfunction
+
+function! UpdateCscopeDb()
+    let extensions = [ "\"*.cpp\"", "\"*.h\"", "\"*.hpp\"", "\"*.inl\"", "\"*.c\"", "\"*.java\"" ]
+    let update_file_list = "find . -name " . join(extensions, " -o -name ") . " > ./cscope.files"
+    echo update_file_list
+    echo system(update_file_list)
+    echo system("cscope -b")
+    cscope kill 0
+    cscope add .
+endfunction
+
+nmap <F12> :call UpdateCscopeDb()<cr>
+vmap <F12> <esc>:call UpdateCscopeDb()<cr>
+imap <F12> <esc>:call UpdateCscopeDb()<cr>
