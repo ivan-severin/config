@@ -1,0 +1,13 @@
+#!/bin/sh
+name=$(lpass ls --format %an | dmenu -i -p "Pass:" -m  $(swaymsg -t get_outputs | jq -r 'map(.focused) | index(true)'))
+[ -z "$name" ] && exit -1
+
+username=$(lpass show --username ${name})
+[ -z "$username" ] && exit -1
+echo -n "\"$username\"" | sed
+ydotool type "${username}" 
+ydotool key Tab 
+password=$(lpass show --password ${name})
+[ -z "$password" ] && exit -1
+# echo -n ${password} | wl-copy
+ydotool type "${password}"
