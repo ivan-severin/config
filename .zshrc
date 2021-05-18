@@ -1,4 +1,4 @@
-source /usr/share/zsh/share/antigen.zsh
+source $HOME/antigen.zsh
 source $HOME/.scripts/*.sh
 
 HISTFILE=~/.zsh_history
@@ -13,6 +13,7 @@ alias ll="ls --color=always -lh"
 alias spm="sudo pacman"
 alias vr="vim --remote-silent"
 alias v="vim"
+alias vim="nvim"
 alias _="sudo"
 # alias ash="adb shell su system"
 alias ash="adb shell su 0"
@@ -21,24 +22,26 @@ alias ash="adb shell su 0"
 # ShellFuncs
 #------------------------------
 # -- coloured manuals
-man() {
-  env \
-    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-    LESS_TERMCAP_md=$(printf "\e[1;31m") \
-    LESS_TERMCAP_me=$(printf "\e[0m") \
-    LESS_TERMCAP_se=$(printf "\e[0m") \
-    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-    LESS_TERMCAP_ue=$(printf "\e[0m") \
-    LESS_TERMCAP_us=$(printf "\e[1;32m") \
-    man "$@"
-}
+# man() {
+#   env \
+#     LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+#     LESS_TERMCAP_md=$(printf "\e[1;31m") \
+#     LESS_TERMCAP_me=$(printf "\e[0m") \
+#     LESS_TERMCAP_se=$(printf "\e[0m") \
+#     LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+#     LESS_TERMCAP_ue=$(printf "\e[0m") \
+#     LESS_TERMCAP_us=$(printf "\e[1;32m") \
+#     man "$@"
+# }
 
 #------------------------------
 # Comp stuff
 #------------------------------
 zmodload zsh/complist
-autoload -Uz compinit
+autoload -Uz compinit promptinit
 compinit
+promptinit
+prompt walters
 zstyle :compinstall filename '${HOME}/.zshrc'
 # matches case insensitive for lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -81,16 +84,16 @@ setopt HIST_REDUCE_BLANKS
 #------------------------------
 #
 antigen use oh-my-zsh
-
+# 
 antigen bundle git
-antigen bundle repo
-antigen bundle zsh-users/zsh-completions
-antigen bundle twang817/zsh-clipboard
-antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle repo
+# antigen bundle zsh-users/zsh-completions
+# antigen bundle twang817/zsh-clipboard
+# antigen bundle zsh-users/zsh-syntax-highlighting
 # antigen theme https://github.com/wesbos/Cobalt2-iterm cobalt2
 # antigen theme oxide
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
-antigen bundle gradle/gradle-completion
+# antigen bundle mafredri/zsh-async
+# antigen bundle sindresorhus/pure
+# antigen bundle gradle/gradle-completion
 antigen bundle chrissicool/zsh-bash
 antigen apply

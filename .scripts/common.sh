@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/sh
 
 function perror () {
     local RED='\033[0;31m'

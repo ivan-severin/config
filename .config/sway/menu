@@ -1,0 +1,2 @@
+#!/bin/sh
+sh -c 'fzy | xargs -r swaymsg -t command exec'

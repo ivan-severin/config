@@ -1,0 +1,45 @@
+# for_window [app_id=".*"] border normal 1px
+for_window [app_id=".*"] inhibit_idle fullscreen
+
+bindsym $mod+Tab workspace back_and_forth
+
+# Floating mode terminal
+set $term_float exec $term --name=terminal_floating
+for_window [app_id="^terminal_floating$"] floating enable, resize set width 600 px height 400 px
+bindsym $mod+Shift+Return exec $term_float
+
+# exec mako
+bindsym Print exec grim ~/del/screen-"$(date +%H:%M:%S)".png
+bindsym Shift+Print exec grim -g "$(slurp)" ~/del/screen-window-"$(date +%H:%M:%S)".png
+
+set $pass "$HOME/.scripts/dmenu/dmenu_lpass"
+
+bindsym --to-code $mod+p exec $pass
+
+# # input configuration
+# input * {
+#     xkb_layout us,ua
+#     xkb_options "grp:alt_space_toggle"
+# 
+#     tap enable
+#     natural_scroll enabled
+# }
+
+
+# key bindings
+# example:
+#   https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
+set $mode_system System: (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id swaylock, mode "default"
+    # bindsym e exec --no-startup-id logout, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym --to-code $mod+z mode "$mode_system"
